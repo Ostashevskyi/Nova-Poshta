@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Choices() {
+function NabigationEl() {
   return (
     <>
       <Link to="/find-department">Find department</Link>
@@ -9,4 +9,4 @@ function Choices() {
   );
 }
 
-export default Choices;
+export default NabigationEl;

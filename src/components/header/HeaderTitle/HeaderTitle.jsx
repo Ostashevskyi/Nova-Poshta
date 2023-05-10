@@ -1,4 +1,4 @@
-function AsideHeader() {
+function HeaderTitle() {
   return (
     <div>
       <h1>Nova Poshta Info</h1>
@@ -6,4 +6,4 @@ function AsideHeader() {
   );
 }
 
-export default AsideHeader;
+export default HeaderTitle;

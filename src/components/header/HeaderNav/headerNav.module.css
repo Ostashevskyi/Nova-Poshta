@@ -1,6 +1,5 @@
 .choices {
   display: flex;
-  flex-direction: column;
 }
 
 ul a {

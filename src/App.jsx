@@ -1,11 +1,11 @@
 import styles from "./App.module.css";
-import Aside from "./components/aside/Aside";
+import Header from "./components/header/Header";
 import Main from "./components/main/Main";
 
 function App() {
   return (
     <div className={styles.wrapper}>
-      <Aside />
+      <Header />
       <Main />
     </div>
   );

@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { Button, CircularProgress, Pagination, TextField } from "@mui/material";
 
 function SearchInput() {
-  const [cityTitle, setCityTitle] = useState("Львів");
+  const [cityTitle, setCityTitle] = useState("");
   const [page, setPage] = useState(1);
   const [departmentsQty] = useState(5);
   const [pageQty, setPageQty] = useState(1);
@@ -79,8 +79,6 @@ function SearchInput() {
         </div>
       )}
       {status === "fulfilled" && displayDepartments()}
-
-      <Button>Click</Button>
     </div>
   );
 }
