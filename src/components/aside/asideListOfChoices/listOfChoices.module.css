@@ -1,0 +1,8 @@
+.choices {
+  display: flex;
+  flex-direction: column;
+}
+
+ul a {
+  margin-bottom: 10px;
+}

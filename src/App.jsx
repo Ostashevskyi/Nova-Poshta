@@ -1,9 +1,14 @@
-import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchDepartment } from "./store/departmentSlice";
+import styles from "./App.module.css";
+import Aside from "./components/aside/Aside";
+import Main from "./components/main/Main";
 
 function App() {
-  return <></>;
+  return (
+    <div className={styles.wrapper}>
+      <Aside />
+      <Main />
+    </div>
+  );
 }
 
 export default App;
