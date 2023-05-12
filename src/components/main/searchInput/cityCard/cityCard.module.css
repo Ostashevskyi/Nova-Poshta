@@ -1,0 +1,23 @@
+.departments {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hidenInfo {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.schedule ul li {
+  margin-top: 10px;
+}
+
+.schedule h4 {
+  text-align: center;
+}
+
+.schedule ul li span {
+  font-weight: 700;
+}

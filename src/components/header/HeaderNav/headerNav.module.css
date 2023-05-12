@@ -1,0 +1,10 @@
+ul a {
+  margin: 0px 30px;
+  text-transform: uppercase;
+  color: #000;
+  font-size: 20px;
+}
+
+ul a:hover {
+  color: #1976d2;
+}
