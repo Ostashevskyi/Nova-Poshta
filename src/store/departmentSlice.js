@@ -45,8 +45,14 @@ const departmentsSlice = createSlice({
     builder.addCase(fetchDepartment.fulfilled, (state, action) => {
       state.status = "fulfilled";
       state.departments = [];
-      state.departments.push(action.payload.data);
-      state.countOfDepartments = action.payload.info.totalCount;
+      state.error = null;
+
+      if (action.payload.success) {
+        state.departments.push(action.payload.data);
+        state.countOfDepartments = action.payload.info.totalCount;
+      } else {
+        state.error = `Server Error! Something get wrong. Try again after 0.5 seconds.`;
+      }
     });
     builder.addCase(fetchDepartment.pending, (state, action) => {
       state.status = "loading";

@@ -3,7 +3,7 @@ import styles from "./headerNav.module.css";
 
 function HeaderNav() {
   return (
-    <ul className={styles.choices}>
+    <ul className={styles.navigationEl}>
       <NavigationEl />
     </ul>
   );

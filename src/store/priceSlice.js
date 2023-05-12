@@ -69,10 +69,12 @@ const priceSlice = createSlice({
   reducers: {},
   extraReducers: (builer) => {
     builer.addCase(fetchCityRef.fulfilled, (state, action) => {
-      if (state.citySenderRef) {
-        state.cityRecipientRef = action.payload[0].Ref;
+      const data = action.payload[0].Ref;
+
+      if (state.citySenderRef && data) {
+        state.cityRecipientRef = data;
       } else {
-        state.citySenderRef = action.payload[0].Ref;
+        state.citySenderRef = data;
       }
     }),
       builer.addCase(fetchCityRef.rejected, (state, action) => {

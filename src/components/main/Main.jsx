@@ -5,12 +5,10 @@ import Price from "./price/Price";
 
 function Main() {
   return (
-    <div className={styles.main__wrapper}>
-      <Routes>
-        <Route path="find-department" element={<SearchInput />} />
-        <Route path="price" element={<Price />} />
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<SearchInput />} />
+      <Route path="delivery-price" element={<Price />} />
+    </Routes>
   );
 }
 

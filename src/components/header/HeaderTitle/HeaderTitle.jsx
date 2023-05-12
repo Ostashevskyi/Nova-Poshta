@@ -1,7 +1,17 @@
+import { Link } from "react-router-dom";
+import styles from "./headerTitle.module.css";
+
 function HeaderTitle() {
   return (
-    <div>
-      <h1>Nova Poshta Info</h1>
+    <div className={styles.header__title}>
+      <div className={styles.logo}>
+        <img src="images/logo.png" alt="logo"></img>
+      </div>
+      <div>
+        <Link to={"/"}>
+          <h1>Nova Poshta Info</h1>
+        </Link>
+      </div>
     </div>
   );
 }
