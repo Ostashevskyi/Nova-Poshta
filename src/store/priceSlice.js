@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_KEY, API_URL } from "../constants/const";
 
 export const fetchCityRef = createAsyncThunk(
   "price/fetchCityRef",
   async function ({ citySender, cityRecipient }, { rejectWithValue }) {
     try {
-      const data = await axios.post("https://api.novaposhta.ua/v2.0/json/", {
-        apiKey: "e29351ba6134aaee84dda3b06c8cb261",
+      const data = await axios.post(API_URL, {
+        apiKey: API_KEY,
         modelName: "Address",
         calledMethod: "getSettlements",
         methodProperties: {
@@ -32,8 +33,8 @@ export const fetchPrice = createAsyncThunk(
     { rejectWithValue }
   ) {
     try {
-      const data = await axios.post("https://api.novaposhta.ua/v2.0/json/", {
-        apiKey: "e29351ba6134aaee84dda3b06c8cb261",
+      const data = await axios.post(API_URL, {
+        apiKey: API_KEY,
         modelName: "InternetDocument",
         calledMethod: "getDocumentPrice",
         methodProperties: {
