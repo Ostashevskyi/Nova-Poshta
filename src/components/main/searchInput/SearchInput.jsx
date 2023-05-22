@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchDepartment } from "../../../store/departmentSlice";
 import { useSelector } from "react-redux";
-import { Button, CircularProgress, Pagination, TextField } from "@mui/material";
+import {
+  Button,
+  CircularProgress,
+  FormControl,
+  InputLabel,
+  Pagination,
+  Select,
+  TextField,
+  MenuItem,
+} from "@mui/material";
 import styles from "./searchInput.module.css";
 import { REGEX } from "../../../constants/const";
 import CityCard from "./cityCard/CityCard";
@@ -12,6 +21,7 @@ function SearchInput() {
   const [page, setPage] = useState(1);
   const [departmentsQty] = useState(10);
   const [pageQty, setPageQty] = useState(1);
+  const [filterType, setFilterType] = useState("");
 
   const dispatch = useDispatch();
 
@@ -23,7 +33,9 @@ function SearchInput() {
 
   useEffect(() => {
     if (cityTitle) {
-      dispatch(fetchDepartment({ cityTitle, page, departmentsQty }));
+      dispatch(
+        fetchDepartment({ cityTitle, page, departmentsQty, filterType })
+      );
     }
     setPageQty(pages);
   }, [page, pages]);
@@ -34,6 +46,7 @@ function SearchInput() {
         cityTitle,
         page,
         departmentsQty,
+        filterType,
       })
     );
     setPageQty(pages);
@@ -44,7 +57,7 @@ function SearchInput() {
     return (
       <>
         {error ? (
-          <h2>{error}</h2>
+          <h2 className={styles.error}>{error}</h2>
         ) : (
           <div>
             <div className={styles.cityCards}>
@@ -60,8 +73,6 @@ function SearchInput() {
                   />
                 );
               })}
-            </div>
-            <div>
               <div className={styles.pagination}>
                 {
                   <Pagination
@@ -94,15 +105,29 @@ function SearchInput() {
         />
         <Button
           variant="contained"
-          sx={{ mb: 2, height: "56px", width: "15%" }}
+          sx={{ mb: 2, mr: 1, height: "56px", width: "15%" }}
           onClick={handleClick}
         >
           Find
         </Button>
+        <FormControl sx={{ width: "200px" }}>
+          <InputLabel id="filter-type">Filter</InputLabel>
+          <Select
+            labelId="filter-type"
+            label="filter"
+            value={filterType}
+            onChange={(e) => setFilterType(e.target.value)}
+          >
+            <MenuItem value={""}>None</MenuItem>
+            <MenuItem value={"postomat"}>Postomat</MenuItem>
+            <MenuItem value={"department"}>Cargo department</MenuItem>
+            <MenuItem value={"departmentkg"}>Post department</MenuItem>
+          </Select>
+        </FormControl>
       </div>
       {status === "loading" ? (
         <div className={styles.circular}>
-          <CircularProgress sx={{}} />
+          <CircularProgress />
         </div>
       ) : (
         displayDepartments()

@@ -3,6 +3,7 @@ ul a {
   text-transform: uppercase;
   color: #000;
   font-size: 20px;
+  font-weight: 700;
 }
 
 ul a:hover {

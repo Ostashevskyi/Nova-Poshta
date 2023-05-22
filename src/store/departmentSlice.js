@@ -1,18 +1,36 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {
+  API_KEY,
+  API_URL,
+  DEPARTMENKGTREF,
+  DEPARTMENTREF,
+  POSTOMATREF,
+} from "../constants/const";
 
 export const fetchDepartment = createAsyncThunk(
   "departments/fetchDepartment",
-  async function ({ cityTitle, page, departmentsQty }, { rejectWithValue }) {
+  async function (
+    { cityTitle, page, departmentsQty, filterType },
+    { rejectWithValue }
+  ) {
     try {
-      const data = await axios.post("https://api.novaposhta.ua/v2.0/json/", {
-        apiKey: "e29351ba6134aaee84dda3b06c8cb261",
+      const chooseType = (filterType) => {
+        if (filterType === "postomat") return POSTOMATREF;
+        else if (filterType === "department") return DEPARTMENTREF;
+        else if (filterType === "departmentkg") return DEPARTMENKGTREF;
+        else return "";
+      };
+
+      const data = await axios.post(API_URL, {
+        apiKey: API_KEY,
         modelName: "Address",
         calledMethod: "getWarehouses",
         methodProperties: {
           CityName: cityTitle,
           Page: page,
           Limit: departmentsQty,
+          TypeOfWarehouseRef: chooseType(filterType),
         },
       });
 

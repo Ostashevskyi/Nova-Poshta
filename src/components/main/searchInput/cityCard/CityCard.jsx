@@ -19,7 +19,7 @@ export default function CityCard(props) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
+          <Typography component={"span"}>
             <HidenInfo
               lat={props.lat}
               lng={props.lng}
