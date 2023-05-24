@@ -7,9 +7,12 @@ import Tracking from "./tracking/Tracking";
 function Main() {
   return (
     <Routes>
-      <Route path="/" element={<SearchInput />} />
-      <Route path="delivery-price" element={<Price />} />
-      <Route path="tracking-delivery" element={<Tracking />}></Route>
+      <Route path="Nova-Poshta/" element={<SearchInput />} />
+      <Route path="/Nova-Poshta/delivery-price" element={<Price />} />
+      <Route
+        path="/Nova-Poshta/tracking-delivery"
+        element={<Tracking />}
+      ></Route>
     </Routes>
   );
 }

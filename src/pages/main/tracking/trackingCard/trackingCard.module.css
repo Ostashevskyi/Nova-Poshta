@@ -18,3 +18,7 @@
 .trackingCard p span {
   font-weight: 700;
 }
+
+.error {
+  text-align: center;
+}

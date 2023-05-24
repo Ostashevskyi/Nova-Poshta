@@ -1,36 +1,21 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {
-  API_KEY,
-  API_URL,
-  DEPARTMENKGTREF,
-  DEPARTMENTREF,
-  POSTOMATREF,
-} from "../constants/const";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
+import { FILTER_TYPE } from "../constants";
 
 export const fetchDepartment = createAsyncThunk(
   "departments/fetchDepartment",
-  async function (
-    { cityTitle, page, departmentsQty, filterType },
-    { rejectWithValue }
-  ) {
+  async function ({ cityTitle, page, filterType }, { rejectWithValue }) {
     try {
-      const chooseType = (filterType) => {
-        if (filterType === "postomat") return POSTOMATREF;
-        else if (filterType === "department") return DEPARTMENTREF;
-        else if (filterType === "departmentkg") return DEPARTMENKGTREF;
-        else return "";
-      };
-
-      const data = await axios.post(API_URL, {
-        apiKey: API_KEY,
+      const data = await axios.post(import.meta.env.VITE_API_URL, {
+        apiKey: import.meta.env.VITE_API_KEY,
         modelName: "Address",
         calledMethod: "getWarehouses",
         methodProperties: {
           CityName: cityTitle,
           Page: page,
-          Limit: departmentsQty,
-          TypeOfWarehouseRef: chooseType(filterType),
+          Limit: 10,
+          TypeOfWarehouseRef: filterType,
         },
       });
 
@@ -57,7 +42,6 @@ const departmentsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchDepartment.rejected, (state, action) => {
       state.error = action.payload;
-      console.log(action.payload);
       state.status = "rejected";
     });
     builder.addCase(fetchDepartment.fulfilled, (state, action) => {
@@ -67,12 +51,14 @@ const departmentsSlice = createSlice({
 
       if (action.payload.success) {
         state.departments.push(action.payload.data);
-        state.countOfDepartments = action.payload.info.totalCount;
+        state.countOfDepartments = Math.ceil(
+          action.payload.info.totalCount / 10
+        );
       } else {
         state.error = `Server Error! Something get wrong. Try again after 0.5 seconds.`;
       }
     });
-    builder.addCase(fetchDepartment.pending, (state, action) => {
+    builder.addCase(fetchDepartment.pending, (state) => {
       state.status = "loading";
     });
   },

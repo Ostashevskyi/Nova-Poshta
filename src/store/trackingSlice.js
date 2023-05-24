@@ -1,31 +1,32 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { API_KEY, API_URL } from "../constants/const";
 import axios from "axios";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchTrackingInfo = createAsyncThunk(
   "tracking/fetchTrackingInfo",
 
   async function ({ documentNumber, mobileNumber }, { rejectWithValue }) {
     try {
-      const data = await axios.post(API_URL, {
-        apiKey: API_KEY,
+      const info = await axios.post(import.meta.env.VITE_API_URL, {
+        apiKey: import.meta.env.VITE_API_KEY,
         modelName: "TrackingDocument",
         calledMethod: "getStatusDocuments",
         methodProperties: {
           Documents: [
             {
-              DocumentNumber: documentNumber, // 20450709916449
-              Phone: mobileNumber, // 380964862437
+              DocumentNumber: documentNumber,
+              Phone: mobileNumber,
             },
           ],
         },
       });
 
-      if (data.status !== 200) {
-        throw new Error("new error");
-      }
+      const { data } = info;
 
-      return data.data.data;
+      if (!data.success) {
+        return data.errors;
+      } else {
+        return data.data;
+      }
     } catch (error) {
       rejectWithValue(error.message);
     }
@@ -42,11 +43,14 @@ const trackingSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTrackingInfo.fulfilled, (state, action) => {
-      if (action.payload) {
+      console.log(action.payload);
+      if (!action.payload[0].length) {
         state.info = action.payload;
         state.status = "fulfilled";
+        state.error = "";
       } else {
-        state.error = `Server Error!`;
+        state.status = "rejected";
+        state.error = action.payload;
       }
     });
     builder.addCase(fetchTrackingInfo.pending, (state, action) => {

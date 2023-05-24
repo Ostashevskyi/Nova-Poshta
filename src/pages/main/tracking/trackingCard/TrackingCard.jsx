@@ -7,7 +7,7 @@ import {
   AccordionDetails,
 } from "@mui/material";
 
-export default function TrackingCard(props) {
+export function TrackingCard(props) {
   const deliveryInfo = props.info;
 
   return (
@@ -111,4 +111,8 @@ export default function TrackingCard(props) {
       })}
     </div>
   );
+}
+
+export function TrackingError(props) {
+  return <h2 className={styles.error}>{props.error}</h2>;
 }

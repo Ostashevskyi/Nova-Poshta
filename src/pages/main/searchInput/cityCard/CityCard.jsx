@@ -93,14 +93,9 @@ function Map(props) {
     mapRef.current = undefined;
   }, []);
 
-  const containerStyle = {
-    width: "400px",
-    height: "400px",
-  };
-
   return (
     <GoogleMap
-      mapContainerStyle={containerStyle}
+      mapContainerClassName={styles.map}
       center={center}
       zoom={17}
       onLoad={onLoad}
