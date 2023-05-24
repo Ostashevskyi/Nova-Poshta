@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import departmentsSlice from "./departmentSlice";
+
 import priceSlice from "./priceSlice";
 import trackingSlice from "./trackingSlice";
+import departmentsSlice from "./departmentSlice";
 
 export default configureStore({
   reducer: {

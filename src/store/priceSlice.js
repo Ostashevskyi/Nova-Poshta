@@ -1,13 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import { API_KEY, API_URL } from "../constants/const";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchCityRef = createAsyncThunk(
   "price/fetchCityRef",
   async function ({ citySender, cityRecipient }, { rejectWithValue }) {
     try {
-      const data = await axios.post(API_URL, {
-        apiKey: API_KEY,
+      const data = await axios.post(import.meta.env.VITE_API_URL, {
+        apiKey: import.meta.env.VITE_API_KEY,
         modelName: "Address",
         calledMethod: "getSettlements",
         methodProperties: {
@@ -33,8 +32,8 @@ export const fetchPrice = createAsyncThunk(
     { rejectWithValue }
   ) {
     try {
-      const data = await axios.post(API_URL, {
-        apiKey: API_KEY,
+      const data = await axios.post(import.meta.env.VITE_API_URL, {
+        apiKey: import.meta.env.VITE_API_KEY,
         modelName: "InternetDocument",
         calledMethod: "getDocumentPrice",
         methodProperties: {
@@ -66,10 +65,12 @@ const priceSlice = createSlice({
     cityRecipientRef: "",
     price: 0,
     error: null,
+    cityRefStatus: null,
+    priceStatus: null,
   },
   reducers: {},
-  extraReducers: (builer) => {
-    builer.addCase(fetchCityRef.fulfilled, (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(fetchCityRef.fulfilled, (state, action) => {
       const data = action.payload[0].Ref;
 
       if (state.citySenderRef && data) {
@@ -77,15 +78,31 @@ const priceSlice = createSlice({
       } else {
         state.citySenderRef = data;
       }
-    }),
-      builer.addCase(fetchCityRef.rejected, (state, action) => {
-        state.error = action.payload;
-      });
-    builer.addCase(fetchPrice.fulfilled, (state, action) => {
-      state.price = action.payload.length ? action.payload[0].Cost : 0;
+
+      state.cityRefStatus = "fulfilled";
     });
-    builer.addCase(fetchPrice.rejected, (state, action) => {
+
+    builder.addCase(fetchCityRef.rejected, (state, action) => {
       state.error = action.payload;
+      state.cityRefStatus = "rejected";
+    });
+
+    builder.addCase(fetchCityRef.pending, (state) => {
+      state.cityRefStatus = "loading";
+    });
+
+    builder.addCase(fetchPrice.fulfilled, (state, action) => {
+      state.price = action.payload.length ? action.payload[0].Cost : 0;
+      state.priceStatus = "fulfilled";
+    });
+
+    builder.addCase(fetchPrice.pending, (state) => {
+      state.priceStatus = "loading";
+    });
+
+    builder.addCase(fetchPrice.rejected, (state, action) => {
+      state.error = action.payload;
+      state.priceStatus = "loading";
     });
   },
 });

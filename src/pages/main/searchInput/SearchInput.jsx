@@ -1,27 +1,29 @@
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
+
 import { useDispatch } from "react-redux";
-import { fetchDepartment } from "../../../store/departmentSlice";
 import { useSelector } from "react-redux";
-import {
-  Button,
-  CircularProgress,
-  FormControl,
-  InputLabel,
-  Pagination,
-  Select,
-  TextField,
-  MenuItem,
-} from "@mui/material";
-import styles from "./searchInput.module.css";
-import { REGEX } from "../../../constants/const";
+import Loader from "src/components/Loader";
+import { useInput } from "src/hooks/useInput";
+import { FILTER_TYPE } from "src/constants";
+import FilledButton from "src/components/FilledButton";
+import InputTextField from "src/components/InputTextField";
+import InputSelectField from "src/components/InputSelectField";
+import { FormControl, InputLabel, Pagination } from "@mui/material";
+
 import CityCard from "./cityCard/CityCard";
 
+import styles from "./searchInput.module.css";
+
+import { fetchDepartment } from "src/store/departmentSlice";
+
 function SearchInput() {
-  const [cityTitle, setCityTitle] = useState("");
+  const setCityTitle = useInput("");
+  const cityTitle = setCityTitle.value;
+
+  const setFilterType = useInput("");
+  const filterType = setFilterType.value;
+
   const [page, setPage] = useState(1);
-  const [departmentsQty] = useState(10);
-  const [pageQty, setPageQty] = useState(1);
-  const [filterType, setFilterType] = useState("");
 
   const dispatch = useDispatch();
 
@@ -29,27 +31,18 @@ function SearchInput() {
     (state) => state.departments
   );
 
-  const pages = Math.ceil(countOfDepartments / departmentsQty);
-
-  useEffect(() => {
-    if (cityTitle) {
-      dispatch(
-        fetchDepartment({ cityTitle, page, departmentsQty, filterType })
-      );
-    }
-    setPageQty(pages);
-  }, [page, pages]);
+  const fetchData = useMemo(() => {
+    dispatch(fetchDepartment({ cityTitle, page, filterType }));
+  }, [page]);
 
   const handleClick = () => {
     dispatch(
       fetchDepartment({
         cityTitle,
         page,
-        departmentsQty,
         filterType,
       })
     );
-    setPageQty(pages);
     setPage(1);
   };
 
@@ -78,7 +71,7 @@ function SearchInput() {
                   <Pagination
                     sx={{ mt: 2 }}
                     color="primary"
-                    count={pageQty}
+                    count={countOfDepartments}
                     page={page}
                     onChange={(_, num) => setPage(num)}
                     showFirstButton
@@ -96,42 +89,38 @@ function SearchInput() {
   return (
     <div className={styles.main}>
       <div className={styles.inputs}>
-        <TextField
-          sx={{ mb: 2, mr: 1, width: "300px" }}
+        <InputTextField
+          data={cityTitle}
+          value={setCityTitle}
+          style={{ mb: 2, mr: 1, width: "300px" }}
           label="Enter a city name"
-          value={cityTitle}
-          onChange={(e) => setCityTitle(e.target.value)}
-          error={!REGEX.test(cityTitle) && cityTitle.length !== 0}
         />
-        <Button
-          variant="contained"
-          sx={{ mb: 2, mr: 1, height: "56px", width: "15%" }}
-          onClick={handleClick}
-        >
-          Find
-        </Button>
-        <FormControl sx={{ width: "200px" }}>
+        <FormControl sx={{ width: "200px", mr: 1 }}>
           <InputLabel id="filter-type">Filter</InputLabel>
-          <Select
+          <InputSelectField
             labelId="filter-type"
             label="filter"
-            value={filterType}
-            onChange={(e) => setFilterType(e.target.value)}
-          >
-            <MenuItem value={""}>None</MenuItem>
-            <MenuItem value={"postomat"}>Postomat</MenuItem>
-            <MenuItem value={"department"}>Cargo department</MenuItem>
-            <MenuItem value={"departmentkg"}>Post department</MenuItem>
-          </Select>
+            filterType={filterType}
+            value={setFilterType}
+            types={[
+              { id: 0, name: "None", ref: "" },
+              { id: 1, name: "Postomat", ref: FILTER_TYPE.PostomatRef },
+              { id: 2, name: "Post Department", ref: FILTER_TYPE.PostRef },
+              { id: 3, name: "Cargo Department", ref: FILTER_TYPE.CargoRef },
+            ]}
+          />
         </FormControl>
+        <FilledButton
+          onClick={handleClick}
+          text={"Find"}
+          style={{ mb: 2, height: "56px", width: "15%" }}
+        />
       </div>
-      {status === "loading" ? (
-        <div className={styles.circular}>
-          <CircularProgress />
-        </div>
-      ) : (
-        displayDepartments()
-      )}
+      <Loader
+        status={status}
+        class={styles.circular}
+        activeFunc={displayDepartments}
+      />
     </div>
   );
 }

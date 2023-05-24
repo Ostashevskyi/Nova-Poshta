@@ -5,4 +5,9 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "/Nova-Poshta/",
   plugins: [react()],
+  resolve: {
+    alias: {
+      src: "/src",
+    },
+  },
 });

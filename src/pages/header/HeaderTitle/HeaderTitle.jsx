@@ -8,7 +8,7 @@ function HeaderTitle() {
         <img src="images/logo.png" alt="logo"></img>
       </div>
       <div>
-        <Link to={"/"}>
+        <Link to={"/Nova-Poshta/"}>
           <h1>Nova Poshta Info</h1>
         </Link>
       </div>
