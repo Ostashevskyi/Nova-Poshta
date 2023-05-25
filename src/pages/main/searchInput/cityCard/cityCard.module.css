@@ -23,6 +23,21 @@
 }
 
 .map {
-  width: 900px;
+  width: 700px;
   height: 500px;
+}
+
+@media (min-width: 320px) and (max-width: 1023px) {
+  .mapWrapper {
+    width: 90%;
+    margin-bottom: 30px;
+  }
+
+  .map {
+    width: 100%;
+  }
+
+  .hidenInfo {
+    flex-direction: column;
+  }
 }

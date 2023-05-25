@@ -11,3 +11,13 @@
 a {
   color: #1976d2;
 }
+
+@media (min-width: 320px) and (max-width: 375px) {
+  .header__title {
+    align-items: center;
+  }
+
+  .header__title a {
+    font-size: 15px;
+  }
+}

@@ -1,4 +1,4 @@
-export const REGEX = /[^\x00-\x7F]+/g;
+export const REGEX = /[^a-zA-Z\s]/g;
 
 export const FILTER_TYPE = {
   PostomatRef: "f9316480-5f2d-425d-bc2c-ac7cd29decf0",

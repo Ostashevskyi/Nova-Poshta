@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styles from "./trackingCard.module.css";
+import React from "react";
+
 import {
   Accordion,
   AccordionSummary,
   Typography,
   AccordionDetails,
 } from "@mui/material";
+
+import styles from "./trackingCard.module.css";
 
 export function TrackingCard(props) {
   const deliveryInfo = props.info;

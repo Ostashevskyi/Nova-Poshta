@@ -19,3 +19,14 @@
 .input {
   margin: 10px 0px;
 }
+
+.circular {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .price__inputs {
+    width: 100%;
+  }
+}
