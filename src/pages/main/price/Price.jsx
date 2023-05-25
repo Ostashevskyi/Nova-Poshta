@@ -1,12 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
-import styles from "./price.module.css";
-import { Button, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
-import { fetchCityRef, fetchPrice } from "../../../store/priceSlice";
-import { useInput } from "src/hooks/useInput";
-import InputTextField from "src/components/InputTextField";
-import FilledButton from "src/components/FilledButton";
+import { useEffect } from "react";
+
 import { REGEX } from "src/constants";
+import Loader from "src/components/Loader";
+import { useInput } from "src/hooks/useInput";
+import { useDispatch, useSelector } from "react-redux";
+import FilledButton from "src/components/FilledButton";
+import InputTextField from "src/components/InputTextField";
+
+import styles from "./price.module.css";
+
+import { fetchCityRef, fetchPrice } from "../../../store/priceSlice";
 
 function Price() {
   const setCitySender = useInput("");
@@ -23,7 +26,7 @@ function Price() {
 
   const dispatch = useDispatch();
 
-  const { citySenderRef, cityRecipientRef, price } = useSelector(
+  const { citySenderRef, cityRecipientRef, price, priceStatus } = useSelector(
     (state) => state.prices
   );
 
@@ -36,6 +39,10 @@ function Price() {
   const handleClick = () => {
     dispatch(fetchCityRef({ citySender }));
     dispatch(fetchCityRef({ cityRecipient }));
+  };
+
+  const printCost = () => {
+    return price > 0 && <h2>Estimated Price is: {price} UAH</h2>;
   };
 
   return (
@@ -78,13 +85,11 @@ function Price() {
             assessedCost <= 0
           }
         />
-
-        {status === "loading" && (
-          <div className={styles.circular}>
-            <CircularProgress />
-          </div>
-        )}
-        {!!price && <h2>Estimated Price is: {price} UAH</h2>}
+        <Loader
+          status={priceStatus}
+          activeFunc={printCost}
+          class={styles.circular}
+        />
       </div>
     </div>
   );

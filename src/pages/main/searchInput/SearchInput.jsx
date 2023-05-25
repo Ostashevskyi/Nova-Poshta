@@ -25,6 +25,8 @@ function SearchInput() {
 
   const [page, setPage] = useState(1);
 
+  const screenWidth = window.screen.availWidth;
+
   const dispatch = useDispatch();
 
   const { departments, countOfDepartments, status, error } = useSelector(
@@ -69,13 +71,19 @@ function SearchInput() {
               <div className={styles.pagination}>
                 {
                   <Pagination
-                    sx={{ mt: 2 }}
+                    sx={{
+                      mt: 2,
+                      display: "flex",
+                      justifyContent: "center",
+                      width: "90%",
+                    }}
                     color="primary"
                     count={countOfDepartments}
                     page={page}
                     onChange={(_, num) => setPage(num)}
-                    showFirstButton
-                    showLastButton
+                    showFirstButton={screenWidth > 320}
+                    showLastButton={screenWidth > 320}
+                    siblingCount={0}
                   />
                 }
               </div>

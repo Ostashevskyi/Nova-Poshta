@@ -7,3 +7,10 @@
   display: flex;
   justify-content: center;
 }
+
+@media (min-width: 320px) and (max-width: 1023px) {
+  .trackingInputs {
+    flex-wrap: wrap;
+    margin: 50px;
+  }
+}

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+
 import styles from "./cityCard.module.css";
 
 import { GoogleMap, Marker } from "@react-google-maps/api";
@@ -35,7 +36,7 @@ export default function CityCard(props) {
 function HidenInfo(props) {
   return (
     <div className={styles.hidenInfo}>
-      <div>
+      <div className={styles.mapWrapper}>
         <Map lat={props.lat} lng={props.lng} />
       </div>
       <div className={styles.schedule}>

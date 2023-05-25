@@ -1,5 +1,6 @@
 import React from "react";
-import { Select, MenuItem, Menu } from "@mui/material";
+
+import { Select, MenuItem } from "@mui/material";
 
 export default function InputSelectField(props) {
   return (

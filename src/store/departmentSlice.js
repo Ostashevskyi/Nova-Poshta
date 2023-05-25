@@ -1,8 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import { FILTER_TYPE } from "../constants";
-
 export const fetchDepartment = createAsyncThunk(
   "departments/fetchDepartment",
   async function ({ cityTitle, page, filterType }, { rejectWithValue }) {
@@ -45,9 +43,14 @@ const departmentsSlice = createSlice({
       state.status = "rejected";
     });
     builder.addCase(fetchDepartment.fulfilled, (state, action) => {
-      state.status = "fulfilled";
-      state.departments = [];
-      state.error = null;
+      if (action.payload.data.length) {
+        state.status = "fulfilled";
+        state.departments = [];
+        state.error = null;
+      } else {
+        state.status = "rejected";
+        state.error = "City name is not correct";
+      }
 
       if (action.payload.success) {
         state.departments.push(action.payload.data);

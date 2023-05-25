@@ -43,7 +43,6 @@ const trackingSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchTrackingInfo.fulfilled, (state, action) => {
-      console.log(action.payload);
       if (!action.payload[0].length) {
         state.info = action.payload;
         state.status = "fulfilled";
