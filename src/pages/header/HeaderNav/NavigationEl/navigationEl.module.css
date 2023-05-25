@@ -73,9 +73,3 @@
 .navbar {
   display: flex;
 }
-
-@media (min-width: 1024px) and (max-width: 1439px) {
-  .navbar div a {
-    font-size: 18px;
-  }
-}
