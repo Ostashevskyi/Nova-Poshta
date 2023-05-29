@@ -58,7 +58,7 @@ const departmentsSlice = createSlice({
           action.payload.info.totalCount / 10
         );
       } else {
-        state.error = `Server Error! Something get wrong. Try again after 0.5 seconds.`;
+        state.error = action.payload.errors;
       }
     });
     builder.addCase(fetchDepartment.pending, (state) => {
