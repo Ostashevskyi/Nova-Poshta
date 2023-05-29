@@ -53,12 +53,12 @@ const departmentsSlice = createSlice({
       }
 
       if (action.payload.success) {
-        state.departments.push(action.payload.data);
+        state.departments = [...state.departments, action.payload.data];
         state.countOfDepartments = Math.ceil(
           action.payload.info.totalCount / 10
         );
       } else {
-        state.error = `Server Error! Something get wrong. Try again after 0.5 seconds.`;
+        state.error = action.payload.errors;
       }
     });
     builder.addCase(fetchDepartment.pending, (state) => {
