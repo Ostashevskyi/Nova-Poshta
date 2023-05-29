@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useMemo } from "react";
 
 import { REGEX } from "src/constants";
 import Loader from "src/components/Loader";
@@ -30,7 +30,7 @@ function Price() {
     (state) => state.prices
   );
 
-  useEffect(() => {
+  useMemo(() => {
     dispatch(
       fetchPrice({ citySenderRef, cityRecipientRef, mailWeight, assessedCost })
     );
