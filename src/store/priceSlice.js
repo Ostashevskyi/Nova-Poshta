@@ -71,15 +71,20 @@ const priceSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCityRef.fulfilled, (state, action) => {
-      const data = action.payload[0].Ref;
+      console.log(action.payload);
+      if (action.payload.length > 0) {
+        const data = action.payload[0].Ref;
 
-      if (state.citySenderRef && data) {
-        state.cityRecipientRef = data;
+        if (state.citySenderRef && data) {
+          state.cityRecipientRef = data;
+        } else {
+          state.citySenderRef = data;
+        }
+
+        state.cityRefStatus = "fulfilled";
       } else {
-        state.citySenderRef = data;
+        state.error = "Some error!";
       }
-
-      state.cityRefStatus = "fulfilled";
     });
 
     builder.addCase(fetchCityRef.rejected, (state, action) => {
