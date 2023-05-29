@@ -25,6 +25,12 @@
   justify-content: center;
 }
 
+.error {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+}
+
 @media (min-width: 320px) and (max-width: 767px) {
   .price__inputs {
     width: 100%;

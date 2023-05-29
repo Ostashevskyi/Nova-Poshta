@@ -26,9 +26,8 @@ function Price() {
 
   const dispatch = useDispatch();
 
-  const { citySenderRef, cityRecipientRef, price, priceStatus } = useSelector(
-    (state) => state.prices
-  );
+  const { citySenderRef, cityRecipientRef, price, priceStatus, error } =
+    useSelector((state) => state.prices);
 
   useEffect(() => {
     dispatch(
@@ -42,7 +41,11 @@ function Price() {
   };
 
   const printCost = () => {
-    return price > 0 && <h2>Estimated Price is: {price} UAH</h2>;
+    return price > 0 && !error ? (
+      <h2>Estimated Price is: {price} UAH</h2>
+    ) : (
+      <h2 className={styles.error}>{error}</h2>
+    );
   };
 
   return (
