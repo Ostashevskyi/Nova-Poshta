@@ -1,0 +1,32 @@
+.departments__block {
+  width: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.departments__block h2 {
+  text-align: center;
+  margin: 20px;
+}
+
+.price__inputs {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.input {
+  margin: 10px 0px;
+}
+
+.circular {
+  display: flex;
+  justify-content: center;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+  .price__inputs {
+    width: 100%;
+  }
+}
