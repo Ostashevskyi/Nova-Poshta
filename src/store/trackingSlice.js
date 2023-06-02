@@ -52,8 +52,12 @@ const trackingSlice = createSlice({
         state.error = action.payload;
       }
     });
-    builder.addCase(fetchTrackingInfo.pending, (state, action) => {
+    builder.addCase(fetchTrackingInfo.pending, (state) => {
       state.status = "loading";
+    });
+    builder.addCase(fetchTrackingInfo.rejected, (state, action) => {
+      state.error = action.payload;
+      state.status = "rejected";
     });
   },
 });

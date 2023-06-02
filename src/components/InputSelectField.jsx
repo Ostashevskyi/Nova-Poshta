@@ -6,10 +6,10 @@ export default function InputSelectField(props) {
   return (
     <>
       <Select
-        labelId={props.labelId} //filter-type
-        label={props.label} //filter
-        value={props.filterType} //filterType
-        {...props.value}
+        labelId={props.labelId}
+        label={props.label}
+        value={props.value}
+        onChange={props.onChange}
       >
         {props.types.map((el) => {
           return (

@@ -10,7 +10,7 @@ export default function Loader(props) {
           <CircularProgress />
         </div>
       ) : (
-        props.activeFunc()
+        props.activeFunc
       )}
     </>
   );

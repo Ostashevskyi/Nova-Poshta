@@ -1,6 +1,6 @@
 import React from "react";
 
-import { REGEX } from "src/constants";
+import { REGEX } from "src/utils/constants";
 
 import { TextField } from "@mui/material";
 
@@ -11,12 +11,13 @@ export default function InputTextField(props) {
         type={props.type}
         sx={props.style}
         label={props.label}
-        data={props.data}
-        {...props.value}
+        value={props.value}
+        onChange={props.onChange}
+        required={props.required}
         error={
           props.type !== "number" &&
-          !props.data.match(REGEX) &&
-          props.data.length !== 0
+          !props.value.match(REGEX) &&
+          props.value.length !== 0
         }
       />
     </>
