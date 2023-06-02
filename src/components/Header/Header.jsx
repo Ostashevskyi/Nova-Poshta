@@ -1,6 +1,6 @@
-import HeaderNav from "./HeaderNav/HeaderNav";
+import HeaderNav from "src/components/Header/HeaderNav/HeaderNav";
 
-import HeaderTitle from "./HeaderTitle/HeaderTitle";
+import HeaderTitle from "src/components/Header/HeaderTitle/HeaderTitle";
 
 import styles from "./header.module.css";
 

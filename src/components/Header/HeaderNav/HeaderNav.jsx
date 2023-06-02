@@ -1,4 +1,4 @@
-import NavigationEl from "./NavigationEl/NavigationEl";
+import NavigationEl from "src/components/Header/HeaderNav/NavigationEl/NavigationEl";
 
 import styles from "./headerNav.module.css";
 

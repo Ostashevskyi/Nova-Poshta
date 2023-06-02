@@ -17,6 +17,10 @@ function NavigationEl() {
     }
   };
 
+  document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
+    elem.addEventListener("click", updateMenu);
+  });
+
   return (
     <>
       <div

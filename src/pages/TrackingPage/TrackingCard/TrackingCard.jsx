@@ -16,8 +16,8 @@ export function TrackingCard(props) {
     <div className={props.isPressed ? styles.trackingCard : ""}>
       {deliveryInfo.map((el, index) => {
         return (
-          <>
-            <Accordion key={"Delivery Details"}>
+          <React.Fragment key={index}>
+            <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
                   Delivery Details
@@ -52,7 +52,7 @@ export function TrackingCard(props) {
               </AccordionDetails>
             </Accordion>
 
-            <Accordion key={"Sender/Recipient Info"}>
+            <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
                   Sender/Recipient Info
@@ -86,7 +86,7 @@ export function TrackingCard(props) {
               </AccordionDetails>
             </Accordion>
 
-            <Accordion key={"Payment Details"}>
+            <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
                   Payment Details
@@ -108,7 +108,7 @@ export function TrackingCard(props) {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-          </>
+          </React.Fragment>
         );
       })}
     </div>

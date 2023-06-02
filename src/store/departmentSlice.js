@@ -38,31 +38,28 @@ const departmentsSlice = createSlice({
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchDepartment.rejected, (state, action) => {
-      state.error = action.payload;
-      state.status = "rejected";
-    });
     builder.addCase(fetchDepartment.fulfilled, (state, action) => {
-      if (action.payload.data.length) {
-        state.status = "fulfilled";
-        state.departments = [];
-        state.error = null;
-      } else {
-        state.status = "rejected";
-        state.error = "City name is not correct";
-      }
-
       if (action.payload.success) {
-        state.departments = [...state.departments, action.payload.data];
-        state.countOfDepartments = Math.ceil(
-          action.payload.info.totalCount / 10
-        );
-      } else {
-        state.error = action.payload.errors;
+        if (action.payload.data.length) {
+          state.status = "fulfilled";
+          state.error = null;
+
+          state.departments = action.payload.data;
+          state.countOfDepartments = Math.ceil(
+            action.payload.info.totalCount / 10
+          );
+        } else {
+          state.status = "rejected";
+          state.error = "City name is not correct";
+        }
       }
     });
     builder.addCase(fetchDepartment.pending, (state) => {
       state.status = "loading";
+    });
+    builder.addCase(fetchDepartment.rejected, (state, action) => {
+      state.error = action.payload;
+      state.status = "rejected";
     });
   },
 });
