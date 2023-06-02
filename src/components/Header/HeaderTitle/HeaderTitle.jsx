@@ -6,7 +6,7 @@ function HeaderTitle() {
   return (
     <div className={styles.header__title}>
       <div className={styles.logo}>
-        <img src="images/logo.png" alt="logo"></img>
+        <img src="/images/logo.png" alt="logo"></img>
       </div>
       <div>
         <Link to={"/Nova-Poshta/"}>
