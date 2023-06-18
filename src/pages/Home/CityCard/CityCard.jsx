@@ -1,7 +1,6 @@
 import React from "react";
 
-import styles from "./cityCard.module.css";
-
+import { useTranslation } from "react-i18next";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 import {
   Accordion,
@@ -10,13 +9,17 @@ import {
   Typography,
 } from "@mui/material";
 
+import styles from "./cityCard.module.css";
+
 export default function CityCard(props) {
+  const { t } = useTranslation(["common", "home"]);
   return (
     <div className={styles.departments}>
       <Accordion sx={{ width: "80%" }}>
         <AccordionSummary>
           <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
-            City: {props.cityDescription} | Street: {props.description}
+            {t("common:city")}: {props.cityDescription} | {t("common:street")}:{" "}
+            {props.description}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
@@ -40,28 +43,28 @@ function HidenInfo(props) {
         <Map lat={props.lat} lng={props.lng} />
       </div>
       <div className={styles.schedule}>
-        <h4>Work schedule</h4>
+        <h4>{t("home:schedule")}</h4>
         <ul>
           <li>
-            <span>Monday:</span> {props.schedule.Monday}
+            <span>{t("home:days.0")}:</span> {props.schedule.Monday}
           </li>
           <li>
-            <span>Tuesday:</span> {props.schedule.Tuesday}
+            <span>{t("home:days.1")}:</span> {props.schedule.Tuesday}
           </li>
           <li>
-            <span>Wednesday:</span> {props.schedule.Wednesday}
+            <span>{t("home:days.2")}:</span> {props.schedule.Wednesday}
           </li>
           <li>
-            <span>Thursday:</span> {props.schedule.Thursday}
+            <span>{t("home:days.3")}:</span> {props.schedule.Thursday}
           </li>
           <li>
-            <span>Friday:</span> {props.schedule.Friday}
+            <span>{t("home:days.4")}:</span> {props.schedule.Friday}
           </li>
           <li>
-            <span>Saturday:</span> {props.schedule.Saturday}
+            <span>{t("home:days.5")}:</span> {props.schedule.Saturday}
           </li>
           <li>
-            <span>Sunday:</span> {props.schedule.Sunday}
+            <span>{t("home:days.6")}:</span> {props.schedule.Sunday}
           </li>
         </ul>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useTranslation } from "react-i18next";
 import {
   Accordion,
   AccordionSummary,
@@ -12,6 +13,8 @@ import styles from "./trackingCard.module.css";
 export function TrackingCard(props) {
   const deliveryInfo = props.info;
 
+  const { t } = useTranslation(["trackingPage", "common"]);
+
   return (
     <div className={props.isPressed ? styles.trackingCard : ""}>
       {deliveryInfo.map((el, index) => {
@@ -20,33 +23,33 @@ export function TrackingCard(props) {
             <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
-                  Delivery Details
+                  {t("del_details")}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography component={"span"}>
                   <p>
                     {" "}
-                    <span>Delivery Type:</span> {el.CargoDescriptionString}
+                    <span>{t("del_type")}:</span> {el.CargoDescriptionString}
                   </p>
                   <p>
-                    <span>Warhouse Category:</span>{" "}
+                    <span>{t("warhouse_cat")}:</span>{" "}
                     {el.CategoryOfWarehouse === "Branch"
                       ? "Department"
                       : "Postomat"}
                   </p>
                   <p>
-                    <span>Creation Date:</span> {el.DateCreated}
+                    <span>{t("creation_date")}:</span> {el.DateCreated}
                   </p>
                   <p>
                     {" "}
-                    <span>Weight: </span> {el.DocumentWeight} kg
+                    <span>{t("weight")}: </span> {el.DocumentWeight} kg
                   </p>
                   <p>
-                    <span>Status:</span> {el.Status}
+                    <span>{t("status")}:</span> {el.Status}
                   </p>
                   <p>
-                    <span>Tracking Update Date:</span> {el.TrackingUpdateDate}
+                    <span>{t("upd_date")}:</span> {el.TrackingUpdateDate}
                   </p>
                 </Typography>
               </AccordionDetails>
@@ -55,32 +58,33 @@ export function TrackingCard(props) {
             <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
-                  Sender/Recipient Info
+                  {t("sen_rec_info")}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography component={"span"}>
                   <p>
-                    <span>City Sender:</span> {el.CitySender}{" "}
+                    <span>{t("common:city_sender")}:</span> {el.CitySender}{" "}
                   </p>
                   <p>
-                    <span>City Recipient:</span> {el.CityRecipient}{" "}
+                    <span>{t("common:city_recipient")}:</span>{" "}
+                    {el.CityRecipient}{" "}
                   </p>
                   <p>
-                    <span>Sender Full Name:</span> {el.SenderFullNameEW}
+                    <span>{t("sen_full_name")}:</span> {el.SenderFullNameEW}
                   </p>
                   <p>
-                    <span>Sender Description:</span>{" "}
+                    <span>{t("sen_desc")}:</span>{" "}
                     {el.CounterpartySenderDescription}
                   </p>
                   <p>
-                    <span>Sender Phone:</span> {el.PhoneSender}{" "}
+                    <span>{t("sen_phone")}:</span> {el.PhoneSender}{" "}
                   </p>
                   <p>
-                    <span>Sender Address:</span> {el.SenderAddress}
+                    <span>{t("sen_address")}:</span> {el.SenderAddress}
                   </p>
                   <p>
-                    <span>Recipient Address:</span> {el.RecipientAddress}
+                    <span>{t("rec_address")}:</span> {el.RecipientAddress}
                   </p>
                 </Typography>
               </AccordionDetails>
@@ -89,20 +93,20 @@ export function TrackingCard(props) {
             <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
-                  Payment Details
+                  {t("payment_details")}
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography component={"span"}>
                   <p>
-                    <span>Estimated Payment Amount:</span>{" "}
+                    <span>{t("est_payment")}:</span>{" "}
                     {el.ExpressWaybillAmountToPay} UAH
                   </p>
                   <p>
-                    <span>Announced Price:</span> {el.AnnouncedPrice} UAH{" "}
+                    <span>{t("ancd_price")}:</span> {el.AnnouncedPrice} UAH{" "}
                   </p>
                   <p>
-                    <span>Payment Method:</span>{" "}
+                    <span>{t("payment_mthd")}:</span>{" "}
                     {el.PaymentMethod === "Cash" ? "Cash" : "Cards"}
                   </p>
                 </Typography>

@@ -2,15 +2,10 @@ import React from "react";
 
 import { Select, MenuItem } from "@mui/material";
 
-export default function InputSelectField(props) {
+export default function InputSelectField({ labelId, label, value, onChange }) {
   return (
     <>
-      <Select
-        labelId={props.labelId}
-        label={props.label}
-        value={props.value}
-        onChange={props.onChange}
-      >
+      <Select labelId={labelId} label={label} value={value} onChange={onChange}>
         {props.types.map((el) => {
           return (
             <MenuItem key={el.id} value={el.ref}>

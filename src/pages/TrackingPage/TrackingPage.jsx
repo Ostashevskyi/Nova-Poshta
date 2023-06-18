@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useMemo } from "react";
 
 import Loader from "src/components/Loader";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import FilledButton from "src/components/FilledButton";
 import InputTextField from "src/components/InputTextField";
@@ -16,6 +17,8 @@ function TrackingPage() {
 
   const dispatch = useDispatch();
 
+  const { t } = useTranslation(["trackingPage"]);
+
   const handleClick = useCallback(() => {
     dispatch(fetchTrackingInfo({ documentNumber, mobileNumber }));
     setIsPressed(true);
@@ -25,7 +28,7 @@ function TrackingPage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={"Search"}
+        text={t("search")}
         style={{ height: "56px" }}
         disabled={!documentNumber}
       />
@@ -38,14 +41,14 @@ function TrackingPage() {
     <div>
       <div className={styles.trackingInputs}>
         <InputTextField
-          label="Enter a document number"
+          label={t("document_number")}
           style={{ mb: 2, mr: 1, width: "300px" }}
           value={documentNumber}
           onChange={(e) => setDocumentNumber(e.target.value)}
           required={true}
         />
         <InputTextField
-          label="Enter a mobile number"
+          label={t("mobile_number")}
           style={{ mb: 2, mr: 1, width: "300px" }}
           value={mobileNumber}
           onChange={(e) => setMobileNumber(e.target.value)}
@@ -54,7 +57,7 @@ function TrackingPage() {
       </div>
       <Loader
         status={status}
-        class={styles.circular}
+        cls={styles.circular}
         activeFunc={
           <DisplayTrackInfo
             error={error}

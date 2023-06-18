@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Loader from "src/components/Loader";
+import { useTranslation } from "react-i18next";
 import { FILTER_TYPE } from "src/utils/constants";
 import FilledButton from "src/components/FilledButton";
 import { FormControl, InputLabel } from "@mui/material";
@@ -20,6 +21,8 @@ function SearchPage() {
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
+
+  const { t } = useTranslation(["home"]);
 
   const { departments, countOfDepartments, status, error } = useSelector(
     (state) => state.departments
@@ -44,7 +47,7 @@ function SearchPage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={"Find"}
+        text={t("find")}
         style={{ mb: 2, height: "56px", width: "15%" }}
       />
     );
@@ -59,11 +62,11 @@ function SearchPage() {
             setCityTitle(e.target.value);
           }}
           style={{ mb: 2, mr: 1, width: "300px" }}
-          label="Enter a city name"
+          label={t("input_placeholder")}
         />
 
         <FormControl sx={{ width: "200px", mr: 1 }}>
-          <InputLabel id="filter-type">Filter</InputLabel>
+          <InputLabel id="filter-type">{t("filter")}</InputLabel>
           <InputSelectField
             labelId="filter-type"
             label="filter"
@@ -72,10 +75,10 @@ function SearchPage() {
               setFilterType(e.target.value);
             }}
             types={[
-              { id: 0, name: "None", ref: "" },
-              { id: 1, name: "Postomat", ref: FILTER_TYPE.PostomatRef },
-              { id: 2, name: "Post Department", ref: FILTER_TYPE.PostRef },
-              { id: 3, name: "Cargo Department", ref: FILTER_TYPE.CargoRef },
+              { id: 0, name: t("filters.0"), ref: "" },
+              { id: 1, name: t("filters.1"), ref: FILTER_TYPE.PostomatRef },
+              { id: 2, name: t("filters.2"), ref: FILTER_TYPE.PostRef },
+              { id: 3, name: t("filters.3"), ref: FILTER_TYPE.CargoRef },
             ]}
           />
         </FormControl>
@@ -83,7 +86,7 @@ function SearchPage() {
       </div>
       <Loader
         status={status}
-        class={styles.circular}
+        cls={styles.circular}
         activeFunc={
           <DisplayDepartments
             error={error}
