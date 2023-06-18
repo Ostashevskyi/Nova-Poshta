@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
-import { REGEX } from "src/utils/constants";
 import Loader from "src/components/Loader";
+import { REGEX } from "src/utils/constants";
+import { useTranslation } from "react-i18next";
+import { fetchPrice } from "src/store/priceSlice";
 import { PrintCost } from "src/components/PrintCost";
 import { useDispatch, useSelector } from "react-redux";
 import FilledButton from "src/components/FilledButton";
@@ -9,13 +11,13 @@ import InputTextField from "src/components/InputTextField";
 
 import styles from "./pricePage.module.css";
 
-import { fetchPrice } from "src/store/priceSlice";
-
 function PricePage() {
   const [citySender, setCitySender] = useState("");
   const [cityRecipient, setCityRecipient] = useState("");
   const [mailWeight, setMailWeight] = useState(0);
   const [assessedCost, setAssessedCost] = useState(0);
+
+  const { t } = useTranslation(["pricePage", "common"]);
 
   const dispatch = useDispatch();
 
@@ -31,7 +33,7 @@ function PricePage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={"Send Info"}
+        text={t("pricePage:send_info")}
         disabled={
           !citySender.match(REGEX) ||
           !cityRecipient.match(REGEX) ||
@@ -44,31 +46,31 @@ function PricePage() {
 
   return (
     <div className={styles.departments__block}>
-      <h2>Price Calculator</h2>
+      <h2>{t("pricePage:price_title")}</h2>
       <div className={styles.price__inputs}>
         <InputTextField
           style={{ mb: 2, width: "100%" }}
           value={citySender}
           onChange={(e) => setCitySender(e.target.value)}
-          label="City Sender"
+          label={t("common:city_sender")}
         />
         <InputTextField
           style={{ mb: 2, width: "100%" }}
           value={cityRecipient}
           onChange={(e) => setCityRecipient(e.target.value)}
-          label="City Recipient"
+          label={t("common:city_recipient")}
         />
         <InputTextField
           style={{ mb: 2, width: "100%" }}
           type="number"
-          label="Mail Weight (kg)"
+          label={t("pricePage:weight")}
           value={mailWeight}
           onChange={(e) => setMailWeight(e.target.value)}
         />
         <InputTextField
           style={{ mb: 2, width: "100%" }}
           type="number"
-          label="Assessed Cost (UAH)"
+          label={t("pricePage:cost")}
           value={assessedCost}
           onChange={(e) => setAssessedCost(e.target.value)}
         />
@@ -76,7 +78,7 @@ function PricePage() {
         <Loader
           status={status}
           activeFunc={<PrintCost price={price} error={error} />}
-          class={styles.circular}
+          cls={styles.circular}
         />
       </div>
     </div>

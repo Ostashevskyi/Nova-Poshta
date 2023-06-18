@@ -2,16 +2,16 @@ import React from "react";
 
 import { Button } from "@mui/material";
 
-export default function FilledButton(props) {
+export default function FilledButton({ style, onClick, disabled, text }) {
   return (
     <>
       <Button
         variant="contained"
-        sx={props.style}
-        onClick={props.onClick}
-        disabled={props.disabled}
+        sx={style}
+        onClick={onClick}
+        disabled={disabled}
       >
-        {props.text}
+        {text}
       </Button>
     </>
   );

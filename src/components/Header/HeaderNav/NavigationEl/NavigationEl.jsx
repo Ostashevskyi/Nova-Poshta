@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import BurgerMenu from "src/components/BurgerMenu";
 
 import styles from "./navigationEl.module.css";
@@ -8,6 +9,8 @@ import styles from "./navigationEl.module.css";
 function NavigationEl() {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
+  const { t, i18n } = useTranslation(["header"]);
 
   const updateMenu = () => {
     if (!isClicked || isClicked) {
@@ -17,6 +20,9 @@ function NavigationEl() {
     }
   };
 
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
   document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
     elem.addEventListener("click", updateMenu);
   });
@@ -29,13 +35,19 @@ function NavigationEl() {
         }`}
       >
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/">Find department</Link>
+          <Link to="/Nova-Poshta/">{t("find_department")}</Link>
         </div>
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/delivery-price">Delivery Price</Link>
+          <Link to="/Nova-Poshta/delivery-price">{t("delivery_price")}</Link>
         </div>
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/tracking-delivery">Delivery Tracking</Link>
+          <Link to="/Nova-Poshta/tracking-delivery">
+            {t("delivery_tracking")}
+          </Link>
+        </div>
+        <div>
+          <button onClick={() => changeLanguage("en")}>EN</button>
+          <button onClick={() => changeLanguage("ua")}>UA</button>
         </div>
       </div>
       <BurgerMenu

@@ -4,16 +4,22 @@ import { REGEX } from "src/utils/constants";
 
 import { TextField } from "@mui/material";
 
-export default function InputTextField(props) {
+export default function InputTextField({
+  type,
+  style,
+  label,
+  onChange,
+  required,
+}) {
   return (
     <>
       <TextField
-        type={props.type}
-        sx={props.style}
-        label={props.label}
-        value={props.value}
-        onChange={props.onChange}
-        required={props.required}
+        type={type}
+        sx={style}
+        label={label}
+        value={value}
+        onChange={onChange}
+        required={required}
         error={
           props.type !== "number" &&
           !props.value.match(REGEX) &&
