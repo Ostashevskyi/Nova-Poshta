@@ -37,6 +37,7 @@ export default function CityCard(props) {
 }
 
 function HidenInfo(props) {
+  const { t } = useTranslation(["home"]);
   return (
     <div className={styles.hidenInfo}>
       <div className={styles.mapWrapper}>
