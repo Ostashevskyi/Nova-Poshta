@@ -9,6 +9,12 @@
 }
 
 .cityCards {
+  margin-bottom: 10px;
+  max-height: 500px;
+  overflow: scroll;
+}
+
+.pagination {
   margin-bottom: 30px;
 }
 

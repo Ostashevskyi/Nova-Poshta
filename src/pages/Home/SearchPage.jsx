@@ -7,24 +7,27 @@ import { useTranslation } from "react-i18next";
 import { FILTER_TYPE } from "src/utils/constants";
 import FilledButton from "src/components/FilledButton";
 import { FormControl, InputLabel } from "@mui/material";
-import InputTextField from "src/components/InputTextField";
 import { fetchDepartment } from "src/store/departmentSlice";
 import InputSelectField from "src/components/InputSelectField";
-import { DisplayDepartments } from "src/components/DisplayDepartments";
+import DisplayDepartments from "src/components/DisplayDepartments";
 
 import styles from "./searchPage.module.css";
 import useGetLanguage from "src/hooks/useGetLanguage";
+import useInputTextField from "src/hooks/useInputTextField";
 
 function SearchPage() {
+  const { t } = useTranslation(["home"]);
   const [language] = useGetLanguage();
-  const [cityTitle, setCityTitle] = useState("");
+  const [cityTitle, setCityTitle] = useInputTextField({
+    type: "text",
+    style: { mb: 2, mr: 1, width: "300px" },
+    label: t("input_placeholder"),
+  });
   const [filterType, setFilterType] = useState("");
 
   const [page, setPage] = useState(1);
 
   const dispatch = useDispatch();
-
-  const { t } = useTranslation(["home"]);
 
   const { departments, countOfDepartments, status, error } = useSelector(
     (state) => state.departments
@@ -59,15 +62,7 @@ function SearchPage() {
   return (
     <div className={styles.main}>
       <div className={styles.inputs}>
-        <InputTextField
-          value={cityTitle}
-          onChange={(e) => {
-            setCityTitle(e.target.value);
-          }}
-          style={{ mb: 2, mr: 1, width: "300px" }}
-          label={t("input_placeholder")}
-        />
-
+        {setCityTitle}
         <FormControl sx={{ width: "200px", mr: 1 }}>
           <InputLabel id="filter-type">{t("filter")}</InputLabel>
           <InputSelectField

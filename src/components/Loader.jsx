@@ -2,7 +2,7 @@ import React from "react";
 
 import { CircularProgress } from "@mui/material";
 
-export default function Loader({ cls, status, children }) {
+const Loader = ({ cls, status, children }) => {
   return (
     <>
       {status === "loading" ? (
@@ -14,4 +14,6 @@ export default function Loader({ cls, status, children }) {
       )}
     </>
   );
-}
+};
+
+export default Loader;

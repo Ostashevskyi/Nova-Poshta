@@ -39,15 +39,18 @@ const departmentsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchDepartment.fulfilled, (state, action) => {
-      if (action.payload.success) {
-        if (action.payload.data.length) {
-          state.status = "fulfilled";
-          state.error = null;
+      if (action.payload?.data.length) {
+        state.status = "fulfilled";
+        state.error = null;
 
-          state.departments = action.payload.data;
-          state.countOfDepartments = Math.ceil(
-            action.payload.info.totalCount / 10
-          );
+        state.departments = action.payload.data;
+        state.countOfDepartments = Math.ceil(
+          action.payload.info.totalCount / 10
+        );
+      } else {
+        if (action.payload === undefined) {
+          state.status = "rejected";
+          state.error = "Oops, something wrong. Please try again!";
         } else {
           state.status = "rejected";
           state.error = "City name is not correct";
