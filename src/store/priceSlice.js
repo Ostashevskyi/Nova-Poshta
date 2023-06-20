@@ -28,13 +28,9 @@ export const fetchCityRef = createAsyncThunk(
       const citySendArr = data[0].data.data;
       const cityResArr = data[1].data.data;
 
-      const citySend = citySendArr.filter(
-        (city) => city.SettlementTypeDescription !== "село"
-      );
+      const citySend = citySendArr.filter((city) => city.Region === "");
 
-      const cityRes = cityResArr.filter(
-        (city) => city.SettlementTypeDescription !== "село"
-      );
+      const cityRes = cityResArr.filter((city) => city.Region === "");
 
       return {
         citySenderRef: citySend[0].Ref,

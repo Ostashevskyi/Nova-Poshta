@@ -6,8 +6,6 @@ import BurgerMenu from "src/components/BurgerMenu";
 
 import styles from "./navigationEl.module.css";
 
-import Flag from "react-world-flags";
-
 function NavigationEl() {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -48,14 +46,16 @@ function NavigationEl() {
           </Link>
         </div>
         <div className={styles.change_language_btns}>
-          <Flag
-            code="gb"
-            className={styles.flags}
+          <img
+            src="/images/icons/gb_flag.png"
+            alt="gb_flag"
+            className={styles.flag}
             onClick={() => changeLanguage("en")}
           />
-          <Flag
-            code="ua"
-            className={styles.flags}
+          <img
+            src="/images/icons/ua_flag.png"
+            alt="ua_flag"
+            className={styles.flag}
             onClick={() => changeLanguage("ua")}
           />
         </div>

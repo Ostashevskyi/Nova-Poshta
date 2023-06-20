@@ -1,23 +1,43 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo } from "react";
 
 import Loader from "src/components/Loader";
 import { REGEX } from "src/utils/constants";
 import { useTranslation } from "react-i18next";
+import PrintCost from "src/components/PrintCost";
 import { fetchPrice } from "src/store/priceSlice";
-import { PrintCost } from "src/components/PrintCost";
+import useGetLanguage from "src/hooks/useGetLanguage";
 import { useDispatch, useSelector } from "react-redux";
 import FilledButton from "src/components/FilledButton";
-import InputTextField from "src/components/InputTextField";
+import useInputTextField from "src/hooks/useInputTextField";
 
 import styles from "./pricePage.module.css";
 
 function PricePage() {
-  const [citySender, setCitySender] = useState("");
-  const [cityRecipient, setCityRecipient] = useState("");
-  const [mailWeight, setMailWeight] = useState(0);
-  const [assessedCost, setAssessedCost] = useState(0);
-
   const { t } = useTranslation(["pricePage", "common"]);
+
+  const [citySender, setCitySender] = useInputTextField({
+    type: "text",
+    style: { mb: 2, width: "100%" },
+    label: t("common:city_sender"),
+  });
+
+  const [cityRecipient, setCityRecipient] = useInputTextField({
+    type: "text",
+    style: { mb: 2, width: "100%" },
+    label: t("common:city_recipient"),
+  });
+
+  const [mailWeight, setMailWeight] = useInputTextField({
+    type: "number",
+    style: { mb: 2, width: "100%" },
+    label: t("pricePage:weight"),
+  });
+  const [assessedCost, setAssessedCost] = useInputTextField({
+    type: "number",
+    style: { mb: 2, width: "100%" },
+    label: t("pricePage:cost"),
+  });
+  const [language] = useGetLanguage();
 
   const dispatch = useDispatch();
 
@@ -33,47 +53,26 @@ function PricePage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={t("pricePage:send_info")}
         disabled={
           !citySender.match(REGEX) ||
           !cityRecipient.match(REGEX) ||
           mailWeight <= 0 ||
           assessedCost <= 0
         }
-      />
+      >
+        {t("pricePage:send_info")}
+      </FilledButton>
     );
-  }, [citySender, cityRecipient, mailWeight, assessedCost]);
+  }, [citySender, cityRecipient, mailWeight, assessedCost, language]);
 
   return (
     <div className={styles.departments__block}>
       <h2>{t("pricePage:price_title")}</h2>
       <div className={styles.price__inputs}>
-        <InputTextField
-          style={{ mb: 2, width: "100%" }}
-          value={citySender}
-          onChange={(e) => setCitySender(e.target.value)}
-          label={t("common:city_sender")}
-        />
-        <InputTextField
-          style={{ mb: 2, width: "100%" }}
-          value={cityRecipient}
-          onChange={(e) => setCityRecipient(e.target.value)}
-          label={t("common:city_recipient")}
-        />
-        <InputTextField
-          style={{ mb: 2, width: "100%" }}
-          type="number"
-          label={t("pricePage:weight")}
-          value={mailWeight}
-          onChange={(e) => setMailWeight(e.target.value)}
-        />
-        <InputTextField
-          style={{ mb: 2, width: "100%" }}
-          type="number"
-          label={t("pricePage:cost")}
-          value={assessedCost}
-          onChange={(e) => setAssessedCost(e.target.value)}
-        />
+        {setCitySender}
+        {setCityRecipient}
+        {setMailWeight}
+        {setAssessedCost}
         {filledBtn}
         <Loader status={status} cls={styles.circular}>
           <PrintCost price={price} error={error} />

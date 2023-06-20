@@ -1,12 +1,6 @@
 import React from "react";
 
-export default function BurgerMenu({
-  isClicked,
-  clsActive,
-  clsDisable,
-  cls,
-  onClick,
-}) {
+const BurgerMenu = ({ isClicked, clsActive, clsDisable, cls, onClick }) => {
   const divCls = isClicked ? clsActive : clsDisable;
 
   return (
@@ -16,4 +10,6 @@ export default function BurgerMenu({
       <div className={divCls}></div>
     </div>
   );
-}
+};
+
+export default BurgerMenu;
