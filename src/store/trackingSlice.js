@@ -1,4 +1,4 @@
-import axios from "axios";
+import instance from "src/utils/instance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchTrackingInfo = createAsyncThunk(
@@ -6,8 +6,7 @@ export const fetchTrackingInfo = createAsyncThunk(
 
   async function ({ documentNumber, mobileNumber }, { rejectWithValue }) {
     try {
-      const info = await axios.post(import.meta.env.VITE_API_URL, {
-        apiKey: import.meta.env.VITE_API_KEY,
+      const info = await instance.post("/", {
         modelName: "TrackingDocument",
         calledMethod: "getStatusDocuments",
         methodProperties: {
@@ -52,8 +51,12 @@ const trackingSlice = createSlice({
         state.error = action.payload;
       }
     });
-    builder.addCase(fetchTrackingInfo.pending, (state, action) => {
+    builder.addCase(fetchTrackingInfo.pending, (state) => {
       state.status = "loading";
+    });
+    builder.addCase(fetchTrackingInfo.rejected, (state, action) => {
+      state.error = action.payload;
+      state.status = "rejected";
     });
   },
 });

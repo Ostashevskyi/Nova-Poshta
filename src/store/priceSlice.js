@@ -1,24 +1,41 @@
 import axios from "axios";
+import instance from "src/utils/instance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchCityRef = createAsyncThunk(
   "price/fetchCityRef",
   async function ({ citySender, cityRecipient }, { rejectWithValue }) {
+    const cities = [citySender, cityRecipient];
     try {
-      const data = await axios.post(import.meta.env.VITE_API_URL, {
-        apiKey: import.meta.env.VITE_API_KEY,
-        modelName: "Address",
-        calledMethod: "getSettlements",
-        methodProperties: {
-          FindByString: citySender === undefined ? cityRecipient : citySender,
-        },
+      const data = await axios.all(
+        cities.map((city) =>
+          instance.post("/", {
+            modelName: "Address",
+            calledMethod: "getSettlements",
+            methodProperties: {
+              FindByString: city,
+            },
+          })
+        )
+      );
+
+      data.forEach((el) => {
+        if (el.status !== 200) {
+          throw new Error("Server Error");
+        }
       });
 
-      if (data.status !== 200) {
-        throw new Error("Server Error");
-      }
+      const citySendArr = data[0].data.data;
+      const cityResArr = data[1].data.data;
 
-      return data.data.data;
+      const citySend = citySendArr.filter((city) => city.Region === "");
+
+      const cityRes = cityResArr.filter((city) => city.Region === "");
+
+      return {
+        citySenderRef: citySend[0].Ref,
+        cityRecipientRef: cityRes[0].Ref,
+      };
     } catch (error) {
       rejectWithValue(error.message);
     }
@@ -28,12 +45,17 @@ export const fetchCityRef = createAsyncThunk(
 export const fetchPrice = createAsyncThunk(
   "price/fetchPrice",
   async function (
-    { citySenderRef, cityRecipientRef, mailWeight, assessedCost },
-    { rejectWithValue }
+    { citySender, cityRecipient, mailWeight, assessedCost },
+    { rejectWithValue, dispatch }
   ) {
     try {
-      const data = await axios.post(import.meta.env.VITE_API_URL, {
-        apiKey: import.meta.env.VITE_API_KEY,
+      const refs = (await dispatch(fetchCityRef({ citySender, cityRecipient })))
+        .payload;
+
+      const { citySenderRef } = refs;
+      const { cityRecipientRef } = refs;
+
+      const data = await instance.post("/", {
         modelName: "InternetDocument",
         calledMethod: "getDocumentPrice",
         methodProperties: {
@@ -61,54 +83,24 @@ export const fetchPrice = createAsyncThunk(
 const priceSlice = createSlice({
   name: "price",
   initialState: {
-    citySenderRef: "",
-    cityRecipientRef: "",
     price: 0,
     error: null,
-    cityRefStatus: null,
-    priceStatus: null,
+    status: null,
   },
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchCityRef.fulfilled, (state, action) => {
-      if (action.payload.length > 0) {
-        const data = action.payload[0].Ref;
-
-        if (state.citySenderRef && data) {
-          state.cityRecipientRef = data;
-        } else {
-          state.citySenderRef = data;
-        }
-
-        state.cityRefStatus = "fulfilled";
-      } else {
-        state.cityRecipientRef = "";
-        state.citySenderRef = "";
-        state.error = "Some Error";
-      }
-    });
-
-    builder.addCase(fetchCityRef.rejected, (state, action) => {
-      state.error = action.payload;
-      state.cityRefStatus = "rejected";
-    });
-
-    builder.addCase(fetchCityRef.pending, (state) => {
-      state.cityRefStatus = "loading";
-    });
-
     builder.addCase(fetchPrice.fulfilled, (state, action) => {
       state.price = action.payload.length ? action.payload[0].Cost : 0;
-      state.priceStatus = "fulfilled";
+      state.status = "fulfilled";
     });
 
     builder.addCase(fetchPrice.pending, (state) => {
-      state.priceStatus = "loading";
+      state.status = "loading";
     });
 
     builder.addCase(fetchPrice.rejected, (state, action) => {
       state.error = action.payload;
-      state.priceStatus = "loading";
+      state.status = "rejected";
     });
   },
 });
