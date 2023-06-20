@@ -15,7 +15,7 @@ export default function CityCard(props) {
   const { t } = useTranslation(["common", "home"]);
   return (
     <div className={styles.departments}>
-      <Accordion sx={{ width: "80%" }}>
+      <Accordion sx={{ width: "100%" }}>
         <AccordionSummary>
           <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
             {t("common:city")}: {props.cityDescription} | {t("common:street")}:{" "}
