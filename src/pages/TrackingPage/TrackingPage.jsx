@@ -9,8 +9,10 @@ import { fetchTrackingInfo } from "src/store/trackingSlice";
 import { DisplayTrackInfo } from "src/components/DisplayTrackInfo";
 
 import styles from "./trackingPage.module.css";
+import useGetLanguage from "src/hooks/useGetLanguage";
 
 function TrackingPage() {
+  const [language] = useGetLanguage();
   const [documentNumber, setDocumentNumber] = useState("");
   const [mobileNumber, setMobileNumber] = useState("");
   const [isPressed, setIsPressed] = useState(false);
@@ -28,12 +30,13 @@ function TrackingPage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={t("search")}
         style={{ height: "56px" }}
         disabled={!documentNumber}
-      />
+      >
+        {t("search")}
+      </FilledButton>
     );
-  }, [documentNumber, mobileNumber]);
+  }, [documentNumber, mobileNumber, language]);
 
   const { info, status, error } = useSelector((state) => state.tracking);
 

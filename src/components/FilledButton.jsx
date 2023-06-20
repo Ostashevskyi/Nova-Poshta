@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button } from "@mui/material";
 
-export default function FilledButton({ style, onClick, disabled, text }) {
+export default function FilledButton({ style, onClick, disabled, children }) {
   return (
     <>
       <Button
@@ -11,7 +11,7 @@ export default function FilledButton({ style, onClick, disabled, text }) {
         onClick={onClick}
         disabled={disabled}
       >
-        {text}
+        {children}
       </Button>
     </>
   );

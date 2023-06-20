@@ -10,12 +10,14 @@ import FilledButton from "src/components/FilledButton";
 import InputTextField from "src/components/InputTextField";
 
 import styles from "./pricePage.module.css";
+import useGetLanguage from "src/hooks/useGetLanguage";
 
 function PricePage() {
   const [citySender, setCitySender] = useState("");
   const [cityRecipient, setCityRecipient] = useState("");
   const [mailWeight, setMailWeight] = useState(0);
   const [assessedCost, setAssessedCost] = useState(0);
+  const [language] = useGetLanguage();
 
   const { t } = useTranslation(["pricePage", "common"]);
 
@@ -33,16 +35,17 @@ function PricePage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={t("pricePage:send_info")}
         disabled={
           !citySender.match(REGEX) ||
           !cityRecipient.match(REGEX) ||
           mailWeight <= 0 ||
           assessedCost <= 0
         }
-      />
+      >
+        {t("pricePage:send_info")}
+      </FilledButton>
     );
-  }, [citySender, cityRecipient, mailWeight, assessedCost]);
+  }, [citySender, cityRecipient, mailWeight, assessedCost, language]);
 
   return (
     <div className={styles.departments__block}>

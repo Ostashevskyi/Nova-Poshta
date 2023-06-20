@@ -13,8 +13,10 @@ import InputSelectField from "src/components/InputSelectField";
 import { DisplayDepartments } from "src/components/DisplayDepartments";
 
 import styles from "./searchPage.module.css";
+import useGetLanguage from "src/hooks/useGetLanguage";
 
 function SearchPage() {
+  const [language] = useGetLanguage();
   const [cityTitle, setCityTitle] = useState("");
   const [filterType, setFilterType] = useState("");
 
@@ -47,11 +49,12 @@ function SearchPage() {
     return (
       <FilledButton
         onClick={handleClick}
-        text={t("find")}
         style={{ mb: 2, height: "56px", width: "15%" }}
-      />
+      >
+        {t("find")}{" "}
+      </FilledButton>
     );
-  }, [cityTitle, filterType]);
+  }, [cityTitle, filterType, language]);
 
   return (
     <div className={styles.main}>
