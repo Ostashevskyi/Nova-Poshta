@@ -1,0 +1,16 @@
+{
+  "input_placeholder": "Enter a city name",
+  "filter": "Filter",
+  "filters": ["None", "Postomat", "Post Department", "Cargo Department"],
+  "find": "Find",
+  "schedule": "Work Schedule",
+  "days": [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+  ]
+}

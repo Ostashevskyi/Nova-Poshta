@@ -1,4 +1,5 @@
 import axios from "axios";
+import instance from "src/utils/instance";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const fetchCityRef = createAsyncThunk(
@@ -8,8 +9,7 @@ export const fetchCityRef = createAsyncThunk(
     try {
       const data = await axios.all(
         cities.map((city) =>
-          axios.post(import.meta.env.VITE_API_URL, {
-            apiKey: import.meta.env.VITE_API_KEY,
+          instance.post("/", {
             modelName: "Address",
             calledMethod: "getSettlements",
             methodProperties: {
@@ -59,8 +59,7 @@ export const fetchPrice = createAsyncThunk(
       const { citySenderRef } = refs;
       const { cityRecipientRef } = refs;
 
-      const data = await axios.post(import.meta.env.VITE_API_URL, {
-        apiKey: import.meta.env.VITE_API_KEY,
+      const data = await instance.post("/", {
         modelName: "InternetDocument",
         calledMethod: "getDocumentPrice",
         methodProperties: {

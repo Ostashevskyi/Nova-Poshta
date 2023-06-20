@@ -1,13 +1,19 @@
 import React from "react";
 
-export default function BurgerMenu(props) {
-  const abc = props.isClicked ? props.clsActive : props.clsDisable;
+export default function BurgerMenu({
+  isClicked,
+  clsActive,
+  clsDisable,
+  cls,
+  onClick,
+}) {
+  const divCls = isClicked ? clsActive : clsDisable;
 
   return (
-    <div className={props.cls} onClick={props.onClick}>
-      <div className={abc}></div>
-      <div className={abc}></div>
-      <div className={abc}></div>
+    <div className={cls} onClick={onClick}>
+      <div className={divCls}></div>
+      <div className={divCls}></div>
+      <div className={divCls}></div>
     </div>
   );
 }
