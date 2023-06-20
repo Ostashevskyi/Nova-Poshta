@@ -6,6 +6,8 @@ import BurgerMenu from "src/components/BurgerMenu";
 
 import styles from "./navigationEl.module.css";
 
+import Flag from "react-world-flags";
+
 function NavigationEl() {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -45,9 +47,17 @@ function NavigationEl() {
             {t("delivery_tracking")}
           </Link>
         </div>
-        <div>
-          <button onClick={() => changeLanguage("en")}>EN</button>
-          <button onClick={() => changeLanguage("ua")}>UA</button>
+        <div className={styles.change_language_btns}>
+          <Flag
+            code="gb"
+            className={styles.flags}
+            onClick={() => changeLanguage("en")}
+          />
+          <Flag
+            code="ua"
+            className={styles.flags}
+            onClick={() => changeLanguage("ua")}
+          />
         </div>
       </div>
       <BurgerMenu

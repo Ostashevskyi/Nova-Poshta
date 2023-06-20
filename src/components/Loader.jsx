@@ -2,15 +2,16 @@ import React from "react";
 
 import { CircularProgress } from "@mui/material";
 
-export default function Loader({ cls, activeFunc }) {
+export default function Loader({ cls, status, children }) {
+  console.log(children);
   return (
     <>
-      {props.status === "loading" ? (
+      {status === "loading" ? (
         <div className={cls}>
           <CircularProgress />
         </div>
       ) : (
-        activeFunc
+        children
       )}
     </>
   );

@@ -84,19 +84,15 @@ function SearchPage() {
         </FormControl>
         {filledBtn}
       </div>
-      <Loader
-        status={status}
-        cls={styles.circular}
-        activeFunc={
-          <DisplayDepartments
-            error={error}
-            countOfDepartments={countOfDepartments}
-            departments={departments}
-            page={page}
-            setPage={setPage}
-          />
-        }
-      />
+      <Loader status={status} cls={styles.circular}>
+        <DisplayDepartments
+          error={error}
+          countOfDepartments={countOfDepartments}
+          departments={departments}
+          page={page}
+          setPage={setPage}
+        />
+      </Loader>
     </div>
   );
 }

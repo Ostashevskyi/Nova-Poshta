@@ -75,11 +75,9 @@ function PricePage() {
           onChange={(e) => setAssessedCost(e.target.value)}
         />
         {filledBtn}
-        <Loader
-          status={status}
-          activeFunc={<PrintCost price={price} error={error} />}
-          cls={styles.circular}
-        />
+        <Loader status={status} cls={styles.circular}>
+          <PrintCost price={price} error={error} />
+        </Loader>
       </div>
     </div>
   );

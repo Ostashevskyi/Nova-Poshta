@@ -55,18 +55,14 @@ function TrackingPage() {
         />
         {filledBtn}
       </div>
-      <Loader
-        status={status}
-        cls={styles.circular}
-        activeFunc={
-          <DisplayTrackInfo
-            error={error}
-            info={info}
-            status={status}
-            isPressed={isPressed}
-          />
-        }
-      />
+      <Loader status={status} cls={styles.circular}>
+        <DisplayTrackInfo
+          error={error}
+          info={info}
+          status={status}
+          isPressed={isPressed}
+        />
+      </Loader>
     </div>
   );
 }

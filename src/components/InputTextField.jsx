@@ -10,6 +10,7 @@ export default function InputTextField({
   label,
   onChange,
   required,
+  value,
 }) {
   return (
     <>
@@ -20,11 +21,7 @@ export default function InputTextField({
         value={value}
         onChange={onChange}
         required={required}
-        error={
-          props.type !== "number" &&
-          !props.value.match(REGEX) &&
-          props.value.length !== 0
-        }
+        error={type !== "number" && !value.match(REGEX) && value.length !== 0}
       />
     </>
   );
