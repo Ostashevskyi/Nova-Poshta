@@ -47,13 +47,13 @@ function NavigationEl() {
         </div>
         <div className={styles.change_language_btns}>
           <img
-            src="/images/icons/gb_flag.png"
+            src="/images/gb_flag.png"
             alt="gb_flag"
             className={styles.flag}
             onClick={() => changeLanguage("en")}
           />
           <img
-            src="/images/icons/ua_flag.png"
+            src="/images/ua_flag.png"
             alt="ua_flag"
             className={styles.flag}
             onClick={() => changeLanguage("ua")}
