@@ -1,8 +1,7 @@
 import React from "react";
 
-import styles from "src/pages/PricePage/pricePage.module.css";
-
 import { useTranslation } from "react-i18next";
+import styles from "src/pages/PricePage/pricePage.module.css";
 
 const PrintCost = ({ error, price }) => {
   const { t } = useTranslation(["common"]);

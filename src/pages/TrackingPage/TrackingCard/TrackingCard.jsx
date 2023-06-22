@@ -16,10 +16,10 @@ export function TrackingCard(props) {
   const { t } = useTranslation(["trackingPage", "common"]);
 
   return (
-    <div className={props.isPressed ? styles.trackingCard : ""}>
+    <div>
       {deliveryInfo.map((el, index) => {
         return (
-          <React.Fragment key={index}>
+          <div key={index} className={styles.trackingCard}>
             <Accordion>
               <AccordionSummary>
                 <Typography sx={{ fontSize: "20px", fontWeight: 700 }}>
@@ -112,7 +112,7 @@ export function TrackingCard(props) {
                 </Typography>
               </AccordionDetails>
             </Accordion>
-          </React.Fragment>
+          </div>
         );
       })}
     </div>

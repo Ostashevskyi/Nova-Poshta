@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 
-import { REGEX } from "src/utils/constants";
-
 import { TextField } from "@mui/material";
+import { REGEX } from "src/utils/constants";
 
 const useInputTextField = ({ type, style, label, required }) => {
   const [value, setValue] = useState("");

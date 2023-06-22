@@ -5,15 +5,15 @@ import { useSelector } from "react-redux";
 import Loader from "src/components/Loader";
 import { useTranslation } from "react-i18next";
 import { FILTER_TYPE } from "src/utils/constants";
+import useGetLanguage from "src/hooks/useGetLanguage";
 import FilledButton from "src/components/FilledButton";
 import { FormControl, InputLabel } from "@mui/material";
 import { fetchDepartment } from "src/store/departmentSlice";
+import useInputTextField from "src/hooks/useInputTextField";
 import InputSelectField from "src/components/InputSelectField";
 import DisplayDepartments from "src/components/DisplayDepartments";
 
 import styles from "./searchPage.module.css";
-import useGetLanguage from "src/hooks/useGetLanguage";
-import useInputTextField from "src/hooks/useInputTextField";
 
 function SearchPage() {
   const { t } = useTranslation(["home"]);

@@ -1,5 +1,7 @@
 {
   "find_department": "Знайти відділ",
   "delivery_price": "Вартість доставки",
-  "delivery_tracking": "Відстеження доставки"
+  "delivery_tracking": "Відстеження доставки",
+  "light": "Світла",
+  "dark": "Темна"
 }

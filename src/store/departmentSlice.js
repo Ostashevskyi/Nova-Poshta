@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 import instance from "../utils/instance";
+import { useTranslation } from "react-i18next";
 
 export const fetchDepartment = createAsyncThunk(
   "departments/fetchDepartment",

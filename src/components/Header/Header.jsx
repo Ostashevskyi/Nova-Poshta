@@ -1,15 +1,17 @@
-import HeaderNav from "src/components/Header/HeaderNav/HeaderNav";
+import { forwardRef } from "react";
 
+import HeaderNav from "src/components/Header/HeaderNav/HeaderNav";
 import HeaderTitle from "src/components/Header/HeaderTitle/HeaderTitle";
 
 import styles from "./header.module.css";
 
-export default Header;
-function Header() {
+const Header = forwardRef(({ getThemeState }, ref) => {
   return (
     <div className={styles.header}>
       <HeaderTitle />
-      <HeaderNav />
+      <HeaderNav getThemeState={getThemeState} ref={ref} />
     </div>
   );
-}
+});
+
+export default Header;
