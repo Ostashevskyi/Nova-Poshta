@@ -1,12 +1,13 @@
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import BurgerMenu from "src/components/BurgerMenu";
+import SwitchModeButton from "src/components/SwitchModeButton";
 
 import styles from "./navigationEl.module.css";
 
-function NavigationEl() {
+const NavigationEl = forwardRef(({ getThemeState }, ref) => {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -23,6 +24,7 @@ function NavigationEl() {
   const changeLanguage = (language) => {
     i18n.changeLanguage(language);
   };
+
   document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
     elem.addEventListener("click", updateMenu);
   });
@@ -59,6 +61,8 @@ function NavigationEl() {
             onClick={() => changeLanguage("ua")}
           />
         </div>
+
+        <SwitchModeButton ref={ref} getThemeState={getThemeState} />
       </div>
       <BurgerMenu
         cls={styles.burgerMenu}
@@ -69,6 +73,6 @@ function NavigationEl() {
       />
     </>
   );
-}
+});
 
 export default NavigationEl;
