@@ -99,8 +99,41 @@
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1300px) {
   .link_block a {
-    font-size: 13px;
+    font-size: 12px;
   }
+
+  h1 {
+    font-size: 20px;
+  }
+}
+
+.mode_button {
+  display: flex;
+}
+
+/* Dark theme */
+
+.dark_content a,
+.dark_content h5,
+.dark_content h2 {
+  color: #fff;
+}
+
+.dark_content {
+  background-color: #121212;
+}
+
+.dark_content h1 {
+  color: #1976d2;
+}
+
+.mode_button {
+  display: flex;
+  align-items: center;
+}
+
+.dark_content .navbar {
+  background-color: #121212;
 }

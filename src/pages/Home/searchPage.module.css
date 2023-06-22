@@ -11,7 +11,7 @@
 .cityCards {
   margin: 0 auto 0 auto;
   max-height: 500px;
-  max-width: fit-content;
+  max-width: 90%;
   overflow-y: scroll;
 }
 
