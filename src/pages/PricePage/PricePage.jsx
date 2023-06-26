@@ -15,13 +15,13 @@ import styles from "./pricePage.module.css";
 function PricePage() {
   const { t } = useTranslation(["pricePage", "common"]);
 
-  const [citySender, setCitySender] = useInputTextField({
+  const [citySender, inputCitySender] = useInputTextField({
     type: "text",
     style: { mb: 2, width: "100%" },
     label: t("common:city_sender"),
   });
 
-  const [cityRecipient, setCityRecipient] = useInputTextField({
+  const [cityRecipient, inputCityResipient] = useInputTextField({
     type: "text",
     style: { mb: 2, width: "100%" },
     label: t("common:city_recipient"),
@@ -69,8 +69,8 @@ function PricePage() {
     <div className={styles.departments__block}>
       <h2>{t("pricePage:price_title")}</h2>
       <div className={styles.price__inputs}>
-        {setCitySender}
-        {setCityRecipient}
+        {inputCitySender}
+        {inputCityResipient}
         {setMailWeight}
         {setAssessedCost}
         {filledBtn}

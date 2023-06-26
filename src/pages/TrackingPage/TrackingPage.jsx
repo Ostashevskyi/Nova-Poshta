@@ -15,14 +15,14 @@ function TrackingPage() {
   const [language] = useGetLanguage();
   const { t } = useTranslation(["trackingPage"]);
 
-  const [documentNumber, setDocumentNumber] = useInputTextField({
+  const [documentNumber, inputDocumentNumber] = useInputTextField({
     type: "text",
     style: { mb: 2, mr: 1, width: "300px" },
     label: t("document_number"),
     required: true,
   });
 
-  const [mobileNumber, setMobileNumber] = useInputTextField({
+  const [mobileNumber, inputMobileNumber] = useInputTextField({
     type: "text",
     style: { mb: 2, mr: 1, width: "300px" },
     label: t("mobile_number"),
@@ -51,8 +51,8 @@ function TrackingPage() {
   return (
     <div>
       <div className={styles.trackingInputs}>
-        {setDocumentNumber}
-        {setMobileNumber}
+        {inputDocumentNumber}
+        {inputMobileNumber}
         {filledBtn}
       </div>
       <Loader status={status} cls={styles.circular}>

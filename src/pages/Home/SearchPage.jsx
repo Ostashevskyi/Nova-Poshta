@@ -18,7 +18,7 @@ import styles from "./searchPage.module.css";
 function SearchPage() {
   const { t } = useTranslation(["home"]);
   const [language] = useGetLanguage();
-  const [cityTitle, setCityTitle] = useInputTextField({
+  const [cityTitle, inputCityTitle] = useInputTextField({
     type: "text",
     style: { mb: 2, mr: 1, width: "300px" },
     label: t("input_placeholder"),
@@ -62,7 +62,7 @@ function SearchPage() {
   return (
     <div className={styles.main}>
       <div className={styles.inputs}>
-        {setCityTitle}
+        {inputCityTitle}
         <FormControl sx={{ width: "200px", mr: 1 }}>
           <InputLabel id="filter-type">{t("filter")}</InputLabel>
           <InputSelectField
