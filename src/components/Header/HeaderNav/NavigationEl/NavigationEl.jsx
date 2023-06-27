@@ -7,7 +7,7 @@ import SwitchModeButton from "src/components/SwitchModeButton";
 
 import styles from "./navigationEl.module.css";
 
-const NavigationEl = forwardRef(({ getThemeState }, ref) => {
+const NavigationEl = (setter) => {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -62,7 +62,7 @@ const NavigationEl = forwardRef(({ getThemeState }, ref) => {
           />
         </div>
 
-        <SwitchModeButton ref={ref} getThemeState={getThemeState} />
+        <SwitchModeButton setter={setter} />
       </div>
       <BurgerMenu
         cls={styles.burgerMenu}
@@ -73,6 +73,6 @@ const NavigationEl = forwardRef(({ getThemeState }, ref) => {
       />
     </>
   );
-});
+};
 
 export default NavigationEl;

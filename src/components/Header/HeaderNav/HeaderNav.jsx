@@ -1,17 +1,15 @@
-import { forwardRef } from "react";
-
 import NavigationEl from "src/components/Header/HeaderNav/NavigationEl/NavigationEl";
 
 import styles from "./headerNav.module.css";
 
-const HeaderNav = forwardRef(({ getThemeState }, ref) => {
+const HeaderNav = ({ setter }) => {
   return (
     <>
       <div className={styles.navigationEl}>
-        <NavigationEl getThemeState={getThemeState} ref={ref} />
+        <NavigationEl setter={setter} />
       </div>
     </>
   );
-});
+};
 
 export default HeaderNav;

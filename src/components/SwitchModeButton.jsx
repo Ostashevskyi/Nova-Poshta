@@ -1,18 +1,35 @@
-import React, { forwardRef, useState, useImperativeHandle } from "react";
+import React, { useMemo } from "react";
 
 import Switch from "@mui/material/Switch";
 import { useTranslation } from "react-i18next";
 import styles from "src/components/Header/HeaderNav/NavigationEl/navigationEl.module.css";
 
-const SwitchModeButton = forwardRef(({ getThemeState }, ref) => {
-  const [isLight, setIsLight] = useState(true);
+const SwitchModeButton = ({ setter }) => {
   const { t } = useTranslation(["header"]);
 
-  useImperativeHandle(ref, () => ({
-    getTheme: () => {
-      return isLight;
-    },
-  }));
+  const isLight = localStorage.getItem("isLight");
+
+  const changeThemeClick = () => {
+    if (isLight === "true" || isLight === null) {
+      localStorage.setItem("isLight", false);
+      document.body.classList.add(styles.dark_content);
+      setter.setter(localStorage.getItem("isLight"));
+    } else {
+      localStorage.setItem("isLight", true);
+      document.body.classList.remove(styles.dark_content);
+      setter.setter(localStorage.getItem("isLight"));
+    }
+  };
+
+  useMemo(() => {
+    if (isLight === "true" || isLight === null) {
+      document.body.classList.remove(styles.dark_content);
+      setter.setter(localStorage.getItem("isLight"));
+    } else {
+      document.body.classList.add(styles.dark_content);
+      setter.setter(localStorage.getItem("isLight"));
+    }
+  }, []);
 
   return (
     <div className={styles.mode_button}>
@@ -20,17 +37,14 @@ const SwitchModeButton = forwardRef(({ getThemeState }, ref) => {
       <Switch
         sx={{ display: "flex" }}
         color="default"
+        checked={localStorage.getItem("isLight") === "false"}
         onClick={() => {
-          setIsLight(!isLight);
-          getThemeState();
-          isLight
-            ? document.body.classList.add(styles.dark_content)
-            : document.body.classList.remove(styles.dark_content);
+          changeThemeClick();
         }}
       />
       <h5>{t("header:dark")}</h5>
     </div>
   );
-});
+};
 
 export default SwitchModeButton;

@@ -1,9 +1,9 @@
-import React from "react";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import React, { useMemo } from "react";
 
-import { ThemeProvider } from "@emotion/react";
 import { Routes, Route } from "react-router-dom";
 import Header from "src/components/Header/Header";
+import { ThemeProvider, useTheme } from "@emotion/react";
 
 import SearchPage from "./pages/Home/SearchPage";
 import PricePage from "./pages/PricePage/PricePage";
@@ -14,19 +14,20 @@ import "./App.css";
 import { themes } from "./utils/themes";
 
 function App() {
-  const themeRef = useRef();
+  const [isLight, setIsLight] = useState(
+    localStorage.getItem("isLight") || localStorage.getItem("isLight") === null
+  );
 
-  const [isDark, setIsDark] = useState("");
+  const [theme, setTheme] = useState(null);
 
-  const getThemeState = () => {
-    const themeState = themeRef.current.getTheme();
-    setIsDark(themeState);
-  };
+  useMemo(() => {
+    setTheme(isLight === "true" ? themes.light : themes.dark);
+  }, [isLight]);
 
   return (
     <React.Fragment>
-      <ThemeProvider theme={isDark ? themes.dark : themes.light}>
-        <Header ref={themeRef} getThemeState={getThemeState} />
+      <ThemeProvider theme={theme}>
+        <Header setter={setIsLight} />
         <Routes>
           <Route path="Nova-Poshta/" element={<SearchPage />} />
           <Route path="/Nova-Poshta/delivery-price" element={<PricePage />} />
