@@ -4,7 +4,7 @@ import Switch from "@mui/material/Switch";
 import { useTranslation } from "react-i18next";
 import styles from "src/components/Header/HeaderNav/NavigationEl/navigationEl.module.css";
 
-const SwitchModeButton = ({ setter }) => {
+const SwitchModeButton = ({ setterTheme }) => {
   const { t } = useTranslation(["header"]);
 
   const isLight = localStorage.getItem("isLight");
@@ -13,21 +13,21 @@ const SwitchModeButton = ({ setter }) => {
     if (isLight === "true" || isLight === null) {
       localStorage.setItem("isLight", false);
       document.body.classList.add(styles.dark_content);
-      setter.setter(localStorage.getItem("isLight"));
+      setterTheme(localStorage.getItem("isLight"));
     } else {
       localStorage.setItem("isLight", true);
       document.body.classList.remove(styles.dark_content);
-      setter.setter(localStorage.getItem("isLight"));
+      setterTheme(localStorage.getItem("isLight"));
     }
   };
 
   useMemo(() => {
     if (isLight === "true" || isLight === null) {
       document.body.classList.remove(styles.dark_content);
-      setter.setter(localStorage.getItem("isLight"));
+      setterTheme(localStorage.getItem("isLight"));
     } else {
       document.body.classList.add(styles.dark_content);
-      setter.setter(localStorage.getItem("isLight"));
+      setterTheme(localStorage.getItem("isLight"));
     }
   }, []);
 

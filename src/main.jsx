@@ -2,19 +2,18 @@ import React, { Suspense } from "react";
 
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 
-import App from "./App.jsx";
 import store from "./store";
+
+import router from "./routes.jsx";
 
 import "./utils/n18.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
-    <BrowserRouter>
-      <Suspense fallback={null}>
-        <App />
-      </Suspense>
-    </BrowserRouter>
+    <Suspense fallback={null}>
+      <RouterProvider router={router} />
+    </Suspense>
   </Provider>
 );

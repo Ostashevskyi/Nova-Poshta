@@ -13,7 +13,11 @@ import useInputTextField from "src/hooks/useInputTextField";
 import InputSelectField from "src/components/InputSelectField";
 import DisplayDepartments from "src/components/DisplayDepartments";
 
+import Header from "src/components/Header/Header";
+
 import styles from "./searchPage.module.css";
+import { Outlet, useParams } from "react-router-dom";
+import i18n from "src/utils/n18";
 
 function SearchPage() {
   const { t } = useTranslation(["home"]);
@@ -91,6 +95,8 @@ function SearchPage() {
           setPage={setPage}
         />
       </Loader>
+
+      <Outlet />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -7,7 +7,7 @@ import SwitchModeButton from "src/components/SwitchModeButton";
 
 import styles from "./navigationEl.module.css";
 
-const NavigationEl = (setter) => {
+const NavigationEl = ({ setterTheme, setterLng }) => {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -21,9 +21,14 @@ const NavigationEl = (setter) => {
     }
   };
 
-  const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
+  const getLanguage = () => {
+    return i18n.language;
   };
+
+  const changeLanguage = useCallback((language) => {
+    // i18n.changeLanguage(language);
+    // return i18n.language;
+  }, []);
 
   document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
     elem.addEventListener("click", updateMenu);
@@ -37,32 +42,36 @@ const NavigationEl = (setter) => {
         }`}
       >
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/">{t("find_department")}</Link>
+          <Link to={`/${getLanguage()}`}>{t("find_department")}</Link>
         </div>
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/delivery-price">{t("delivery_price")}</Link>
+          <Link to={"delivery-price"}>{t("delivery_price")}</Link>
         </div>
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/tracking-delivery">
-            {t("delivery_tracking")}
-          </Link>
+          <Link to={"delivery-tracking"}>{t("delivery_tracking")}</Link>
         </div>
         <div className={styles.change_language_btns}>
-          <img
-            src="/images/gb_flag.png"
-            alt="gb_flag"
-            className={styles.flag}
-            onClick={() => changeLanguage("en")}
-          />
-          <img
-            src="/images/ua_flag.png"
-            alt="ua_flag"
-            className={styles.flag}
-            onClick={() => changeLanguage("ua")}
-          />
+          <div className={styles.flag}>
+            <Link to={changeLanguage("en")}>
+              <img
+                src="/images/icons/us.svg"
+                alt="us_flag"
+                className={styles.flag}
+              />
+            </Link>
+          </div>
+          <div className={styles.flag}>
+            <Link to={changeLanguage("ua")}>
+              <img
+                src="/images/icons/ua.svg"
+                alt="ua_flag"
+                className={styles.flag}
+              />
+            </Link>
+          </div>
         </div>
 
-        <SwitchModeButton setter={setter} />
+        <SwitchModeButton setterTheme={setterTheme} />
       </div>
       <BurgerMenu
         cls={styles.burgerMenu}

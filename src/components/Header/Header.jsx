@@ -3,11 +3,11 @@ import HeaderTitle from "src/components/Header/HeaderTitle/HeaderTitle";
 
 import styles from "./header.module.css";
 
-const Header = ({ setter }) => {
+const Header = ({ setterTheme }) => {
   return (
     <div className={styles.header}>
       <HeaderTitle />
-      <HeaderNav setter={setter} />
+      <HeaderNav setterTheme={setterTheme} />
     </div>
   );
 };

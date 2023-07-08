@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import styles from "./headerTitle.module.css";
+import { useState, useMemo, useEffect } from "react";
+import i18n from "src/utils/n18";
 
 function HeaderTitle() {
   return (
@@ -9,7 +11,7 @@ function HeaderTitle() {
         <img src="/images/logo.png" alt="logo"></img>
       </div>
       <div>
-        <Link to={"/Nova-Poshta/"}>
+        <Link to={`/Nova-Poshta/lng`}>
           <h1>Nova Poshta Info</h1>
         </Link>
       </div>
