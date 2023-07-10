@@ -3,6 +3,7 @@ import SearchPage from "./pages/Home/SearchPage";
 import PricePage from "./pages/PricePage/PricePage";
 import TrackingPage from "./pages/TrackingPage/TrackingPage";
 import React from "react";
+import Header from "./components/Header/Header";
 import App from "./App";
 
 const router = createBrowserRouter([
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/:lng",
+        index: true,
         element: <SearchPage />,
       },
       {

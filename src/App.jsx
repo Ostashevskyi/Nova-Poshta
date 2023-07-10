@@ -7,8 +7,9 @@ import { ThemeProvider } from "@emotion/react";
 import "./App.css";
 
 import { themes } from "./utils/themes";
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, Routes, useParams, Route } from "react-router-dom";
 import i18n from "./utils/n18";
+import { useEffect } from "react";
 
 function App() {
   const [isLight, setIsLight] = useState(
@@ -23,9 +24,9 @@ function App() {
 
   const { lng } = useParams();
 
-  useMemo(() => {
+  useEffect(() => {
     i18n.changeLanguage(lng);
-  }, [i18n.language, window.location.href]);
+  }, [lng, window.location.pathname]);
 
   return (
     <React.Fragment>
@@ -38,17 +39,3 @@ function App() {
 }
 
 export default App;
-
-{
-  /* <Routes>
-          <Route path={`/Nova-Poshta/:lng`} element={<SearchPage />} />
-          <Route
-            path={`/Nova-Poshta/:lng/delivery-price`}
-            element={<PricePage />}
-          />
-          <Route
-            path={`Nova-Poshta/:lng/tracking-delivery`}
-            element={<TrackingPage />}
-          ></Route>
-        </Routes> */
-}

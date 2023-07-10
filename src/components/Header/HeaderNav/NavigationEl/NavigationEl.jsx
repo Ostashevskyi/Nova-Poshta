@@ -1,13 +1,14 @@
-import { useCallback, useState } from "react";
+import { useState, useMemo } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import BurgerMenu from "src/components/BurgerMenu";
 import SwitchModeButton from "src/components/SwitchModeButton";
 
 import styles from "./navigationEl.module.css";
+import LanguageButton from "src/components/LanguageButton";
 
-const NavigationEl = ({ setterTheme, setterLng }) => {
+const NavigationEl = ({ setterTheme }) => {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -25,11 +26,6 @@ const NavigationEl = ({ setterTheme, setterLng }) => {
     return i18n.language;
   };
 
-  const changeLanguage = useCallback((language) => {
-    // i18n.changeLanguage(language);
-    // return i18n.language;
-  }, []);
-
   document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
     elem.addEventListener("click", updateMenu);
   });
@@ -45,30 +41,18 @@ const NavigationEl = ({ setterTheme, setterLng }) => {
           <Link to={`/${getLanguage()}`}>{t("find_department")}</Link>
         </div>
         <div className={styles.link_block}>
-          <Link to={"delivery-price"}>{t("delivery_price")}</Link>
+          <Link to={`/${getLanguage()}/delivery-price`}>
+            {t("delivery_price")}
+          </Link>
         </div>
         <div className={styles.link_block}>
-          <Link to={"delivery-tracking"}>{t("delivery_tracking")}</Link>
+          <Link to={`/${getLanguage()}/delivery-tracking`}>
+            {t("delivery_tracking")}
+          </Link>
         </div>
         <div className={styles.change_language_btns}>
-          <div className={styles.flag}>
-            <Link to={changeLanguage("en")}>
-              <img
-                src="/images/icons/us.svg"
-                alt="us_flag"
-                className={styles.flag}
-              />
-            </Link>
-          </div>
-          <div className={styles.flag}>
-            <Link to={changeLanguage("ua")}>
-              <img
-                src="/images/icons/ua.svg"
-                alt="ua_flag"
-                className={styles.flag}
-              />
-            </Link>
-          </div>
+          <LanguageButton country="en" />
+          <LanguageButton country="ua" />
         </div>
 
         <SwitchModeButton setterTheme={setterTheme} />
