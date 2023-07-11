@@ -2,11 +2,11 @@ import NavigationEl from "src/components/Header/HeaderNav/NavigationEl/Navigatio
 
 import styles from "./headerNav.module.css";
 
-const HeaderNav = ({ setter }) => {
+const HeaderNav = ({ setterTheme }) => {
   return (
     <>
       <div className={styles.navigationEl}>
-        <NavigationEl setter={setter} />
+        <NavigationEl setterTheme={setterTheme} />
       </div>
     </>
   );

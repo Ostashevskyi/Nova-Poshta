@@ -12,5 +12,6 @@
     "Friday",
     "Saturday",
     "Sunday"
-  ]
+  ], 
+  "try_again": "Oops, something wrong. Please try again!"
 }

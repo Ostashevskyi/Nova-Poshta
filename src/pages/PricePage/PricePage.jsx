@@ -11,6 +11,7 @@ import FilledButton from "src/components/FilledButton";
 import useInputTextField from "src/hooks/useInputTextField";
 
 import styles from "./pricePage.module.css";
+import { useParams } from "react-router-dom";
 
 function PricePage() {
   const { t } = useTranslation(["pricePage", "common"]);
