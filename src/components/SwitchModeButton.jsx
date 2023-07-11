@@ -6,7 +6,6 @@ import styles from "src/components/Header/HeaderNav/NavigationEl/navigationEl.mo
 
 const SwitchModeButton = ({ setterTheme }) => {
   const { t } = useTranslation(["header"]);
-
   const isLight = localStorage.getItem("isLight");
 
   const changeThemeClick = () => {

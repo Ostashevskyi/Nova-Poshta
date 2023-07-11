@@ -1,14 +1,16 @@
+import React from "react";
+
 import { createBrowserRouter } from "react-router-dom";
+
 import SearchPage from "./pages/Home/SearchPage";
 import PricePage from "./pages/PricePage/PricePage";
 import TrackingPage from "./pages/TrackingPage/TrackingPage";
-import React from "react";
-import Header from "./components/Header/Header";
+
 import App from "./App";
 
 const router = createBrowserRouter([
   {
-    path: "/:lng",
+    path: `/:lng`,
     element: <App />,
     children: [
       {
@@ -16,11 +18,11 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: "delivery-price",
+        path: `delivery-price`,
         element: <PricePage />,
       },
       {
-        path: "delivery-tracking",
+        path: `delivery-tracking`,
         element: <TrackingPage />,
       },
     ],

@@ -1,19 +1,14 @@
-import React, { useMemo, useState } from "react";
+import React from "react";
+
 import i18n from "src/utils/n18";
-import flagUA from "/images/icons/ua.svg";
-import flagUS from "/images/icons/us.svg";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import styles from "src/components/Header/HeaderNav/NavigationEl/navigationEl.module.css";
 
+import flagUA from "/images/icons/ua.svg";
+import flagUS from "/images/icons/us.svg";
+
 const LanguageButton = ({ country }) => {
-  //   const replace = () => {
-  //     const url = window.location.pathname;
-  //     const splited = url
-  //       .split("/")
-  //       .filter((el) => el !== "en" && el !== "ua" && el !== "")
-  //       .join();
-  //     return splited;
-  //   };
+  const location = useLocation();
 
   const countries = {
     ua: flagUA,
@@ -22,7 +17,7 @@ const LanguageButton = ({ country }) => {
 
   return (
     <div className={styles.flag} onClick={() => i18n.changeLanguage(country)}>
-      <Link to={localStorage.getItem("i18nextLng")}>
+      <Link to={location.pathname.replace(i18n.language, country)}>
         <img
           src={country === "ua" ? countries.ua : countries.us}
           alt="us_flag"

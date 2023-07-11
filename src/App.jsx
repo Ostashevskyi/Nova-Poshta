@@ -1,20 +1,24 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import React, { useMemo } from "react";
 
-import Header from "src/components/Header/Header";
+import { useParams } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
+import Header from "src/components/Header/Header";
 
 import "./App.css";
 
-import { themes } from "./utils/themes";
-import { Outlet, Routes, useParams, Route } from "react-router-dom";
 import i18n from "./utils/n18";
-import { useEffect } from "react";
+import { themes } from "./utils/themes";
 
 function App() {
-  const [isLight, setIsLight] = useState(
-    localStorage.getItem("isLight") || localStorage.getItem("isLight") === null
-  );
+  const [isLight, setIsLight] = useState();
+
+  useEffect(() => {
+    localStorage.getItem("isLight") === null
+      ? setIsLight("true")
+      : setIsLight(localStorage.getItem("isLight"));
+  }, []);
 
   const [theme, setTheme] = useState(null);
 
@@ -26,13 +30,12 @@ function App() {
 
   useEffect(() => {
     i18n.changeLanguage(lng);
-  }, [lng, window.location.pathname]);
+  }, [lng]);
 
   return (
     <React.Fragment>
       <ThemeProvider theme={theme}>
         <Header setterTheme={setIsLight} />
-        <Outlet />
       </ThemeProvider>
     </React.Fragment>
   );

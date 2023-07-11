@@ -11,6 +11,7 @@ const Header = ({ setterTheme }) => {
         <HeaderTitle />
         <HeaderNav setterTheme={setterTheme} />
       </div>
+      <Outlet />
     </>
   );
 };

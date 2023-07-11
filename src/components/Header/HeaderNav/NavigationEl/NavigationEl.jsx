@@ -1,12 +1,12 @@
-import { useState, useMemo } from "react";
+import { useState } from "react";
 
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import BurgerMenu from "src/components/BurgerMenu";
+import LanguageButton from "src/components/LanguageButton";
 import SwitchModeButton from "src/components/SwitchModeButton";
 
 import styles from "./navigationEl.module.css";
-import LanguageButton from "src/components/LanguageButton";
 
 const NavigationEl = ({ setterTheme }) => {
   const [isClicked, setIsCliked] = useState(false);
@@ -22,10 +22,6 @@ const NavigationEl = ({ setterTheme }) => {
     }
   };
 
-  const getLanguage = () => {
-    return i18n.language;
-  };
-
   document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
     elem.addEventListener("click", updateMenu);
   });
@@ -38,15 +34,15 @@ const NavigationEl = ({ setterTheme }) => {
         }`}
       >
         <div className={styles.link_block}>
-          <Link to={`/${getLanguage()}`}>{t("find_department")}</Link>
+          <Link to={`/${i18n.language}`}>{t("find_department")}</Link>
         </div>
         <div className={styles.link_block}>
-          <Link to={`/${getLanguage()}/delivery-price`}>
+          <Link to={`/${i18n.language}/delivery-price`}>
             {t("delivery_price")}
           </Link>
         </div>
         <div className={styles.link_block}>
-          <Link to={`/${getLanguage()}/delivery-tracking`}>
+          <Link to={`/${i18n.language}/delivery-tracking`}>
             {t("delivery_tracking")}
           </Link>
         </div>
