@@ -32,6 +32,13 @@ export const fetchTrackingInfo = createAsyncThunk(
   }
 );
 
+export const resetTracking = createAsyncThunk(
+  "tracking/resetTracking",
+  async function () {
+    return [];
+  }
+)
+
 const trackingSlice = createSlice({
   name: "tracking",
   initialState: {
@@ -47,6 +54,7 @@ const trackingSlice = createSlice({
         state.status = "fulfilled";
         state.error = "";
       } else {
+        state.info = [];
         state.status = "rejected";
         state.error = action.payload;
       }
@@ -57,6 +65,9 @@ const trackingSlice = createSlice({
     builder.addCase(fetchTrackingInfo.rejected, (state, action) => {
       state.error = action.payload;
       state.status = "rejected";
+    });
+    builder.addCase(resetTracking.fulfilled, (state, action) => {
+      state.info = action.payload;
     });
   },
 });

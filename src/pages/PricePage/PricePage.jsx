@@ -1,17 +1,17 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useMemo, useEffect } from "react";
 
 import Loader from "src/components/Loader";
 import { REGEX } from "src/utils/constants";
 import { useTranslation } from "react-i18next";
 import PrintCost from "src/components/PrintCost";
 import { fetchPrice } from "src/store/priceSlice";
+import { resetPrice } from "src/store/priceSlice";
 import useGetLanguage from "src/hooks/useGetLanguage";
 import { useDispatch, useSelector } from "react-redux";
 import FilledButton from "src/components/FilledButton";
 import useInputTextField from "src/hooks/useInputTextField";
 
 import styles from "./pricePage.module.css";
-import { useParams } from "react-router-dom";
 
 function PricePage() {
   const { t } = useTranslation(["pricePage", "common"]);
@@ -43,6 +43,12 @@ function PricePage() {
   const dispatch = useDispatch();
 
   const { price, status, error } = useSelector((state) => state.prices);
+
+  useEffect(() => {
+    return () => {
+      dispatch(resetPrice());
+    };
+  }, [dispatch]);
 
   const handleClick = useCallback(() => {
     dispatch(
