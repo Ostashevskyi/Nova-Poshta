@@ -5,11 +5,11 @@ import {
   TrackingError,
 } from "src/pages/TrackingPage/TrackingCard/TrackingCard";
 
-const DisplayTrackInfo = ({ error, info, status, isPressed }) => {
-  if (status === "rejected") {
-    return <TrackingError error={error} />;
-  } else {
+const DisplayTrackInfo = ({ error, info, isPressed }) => {
+  if (info) {
     return <TrackingCard info={info} isPressed={isPressed} />;
+  } else if (error) {
+    return <TrackingError error={error} />;
   }
 };
 

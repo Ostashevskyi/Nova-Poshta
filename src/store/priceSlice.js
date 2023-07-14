@@ -80,6 +80,13 @@ export const fetchPrice = createAsyncThunk(
   }
 );
 
+export const resetPrice = createAsyncThunk(
+  "price/resetPrice",
+  async function () {
+    return 0;
+  }
+)
+
 const priceSlice = createSlice({
   name: "price",
   initialState: {
@@ -101,6 +108,10 @@ const priceSlice = createSlice({
     builder.addCase(fetchPrice.rejected, (state, action) => {
       state.error = action.payload;
       state.status = "rejected";
+    });
+
+    builder.addCase(resetPrice.fulfilled, (state, action) => {
+     state.price = action.payload;
     });
   },
 });
