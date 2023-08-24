@@ -1,25 +1,43 @@
-import { Routes, Route } from "react-router-dom";
-import Header from "src/components/Header/Header";
+import { useState } from "react";
+import { useEffect } from "react";
+import React, { useMemo } from "react";
 
-import SearchPage from "./pages/Home/SearchPage";
-import PricePage from "./pages/PricePage/PricePage";
-import TrackingPage from "./pages/TrackingPage/TrackingPage";
+import { useParams } from "react-router-dom";
+import { ThemeProvider } from "@emotion/react";
+import Header from "src/components/Header/Header";
 
 import "./App.css";
 
+import i18n from "./utils/n18";
+import { themes } from "./utils/themes";
+
 function App() {
+  const [isLight, setIsLight] = useState();
+
+  useEffect(() => {
+    localStorage.getItem("isLight") === null
+      ? setIsLight("true")
+      : setIsLight(localStorage.getItem("isLight"));
+  }, []);
+
+  const [theme, setTheme] = useState(null);
+
+  useMemo(() => {
+    setTheme(isLight === "true" ? themes.light : themes.dark);
+  }, [isLight]);
+
+  const { lng } = useParams();
+
+  useEffect(() => {
+    i18n.changeLanguage(lng);
+  }, [lng]);
+
   return (
-    <>
-      <Header />
-      <Routes>
-        <Route path="Nova-Poshta/" element={<SearchPage />} />
-        <Route path="/Nova-Poshta/delivery-price" element={<PricePage />} />
-        <Route
-          path="/Nova-Poshta/tracking-delivery"
-          element={<TrackingPage />}
-        ></Route>
-      </Routes>
-    </>
+    <React.Fragment>
+      <ThemeProvider theme={theme}>
+        <Header setterTheme={setIsLight} />
+      </ThemeProvider>
+    </React.Fragment>
   );
 }
 

@@ -2,14 +2,14 @@ import NavigationEl from "src/components/Header/HeaderNav/NavigationEl/Navigatio
 
 import styles from "./headerNav.module.css";
 
-function HeaderNav() {
+const HeaderNav = ({ setterTheme }) => {
   return (
     <>
       <div className={styles.navigationEl}>
-        <NavigationEl />
+        <NavigationEl setterTheme={setterTheme} />
       </div>
     </>
   );
-}
+};
 
 export default HeaderNav;

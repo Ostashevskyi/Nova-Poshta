@@ -3,10 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import BurgerMenu from "src/components/BurgerMenu";
+import LanguageButton from "src/components/LanguageButton";
+import SwitchModeButton from "src/components/SwitchModeButton";
 
 import styles from "./navigationEl.module.css";
 
-function NavigationEl() {
+const NavigationEl = ({ setterTheme }) => {
   const [isClicked, setIsCliked] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -20,9 +22,6 @@ function NavigationEl() {
     }
   };
 
-  const changeLanguage = (language) => {
-    i18n.changeLanguage(language);
-  };
   document.querySelectorAll(`.${styles.link_block}`).forEach(function (elem) {
     elem.addEventListener("click", updateMenu);
   });
@@ -35,30 +34,26 @@ function NavigationEl() {
         }`}
       >
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/">{t("find_department")}</Link>
+          <Link to={`/Nova-Poshta/${i18n.language}`}>
+            {t("find_department")}
+          </Link>
         </div>
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/delivery-price">{t("delivery_price")}</Link>
+          <Link to={`/Nova-Poshta/${i18n.language}/delivery-price`}>
+            {t("delivery_price")}
+          </Link>
         </div>
         <div className={styles.link_block}>
-          <Link to="/Nova-Poshta/tracking-delivery">
+          <Link to={`/Nova-Poshta/${i18n.language}/delivery-tracking`}>
             {t("delivery_tracking")}
           </Link>
         </div>
         <div className={styles.change_language_btns}>
-          <img
-            src="/images/gb_flag.png"
-            alt="gb_flag"
-            className={styles.flag}
-            onClick={() => changeLanguage("en")}
-          />
-          <img
-            src="/images/ua_flag.png"
-            alt="ua_flag"
-            className={styles.flag}
-            onClick={() => changeLanguage("ua")}
-          />
+          <LanguageButton country="en" />
+          <LanguageButton country="ua" />
         </div>
+
+        <SwitchModeButton setterTheme={setterTheme} />
       </div>
       <BurgerMenu
         cls={styles.burgerMenu}
@@ -69,6 +64,6 @@ function NavigationEl() {
       />
     </>
   );
-}
+};
 
 export default NavigationEl;
