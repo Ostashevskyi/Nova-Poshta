@@ -10,7 +10,7 @@ import App from "./App";
 
 const router = createBrowserRouter([
   {
-    path: `/:lng`,
+    path: `Nova-Poshta/:lng`,
     element: <App />,
     children: [
       {

@@ -4,7 +4,6 @@ import styles from "./headerTitle.module.css";
 import i18n from "src/utils/n18";
 
 function HeaderTitle() {
-
   const getLanguage = () => {
     return i18n.language;
   };
@@ -15,7 +14,7 @@ function HeaderTitle() {
         <img src="/images/logo.png" alt="logo"></img>
       </div>
       <div>
-        <Link to={`/${getLanguage()}`}>
+        <Link to={`/Nova-Poshta/${getLanguage()}`}>
           <h1>Nova Poshta Info</h1>
         </Link>
       </div>

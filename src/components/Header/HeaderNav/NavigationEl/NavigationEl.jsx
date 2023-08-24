@@ -34,15 +34,17 @@ const NavigationEl = ({ setterTheme }) => {
         }`}
       >
         <div className={styles.link_block}>
-          <Link to={`/${i18n.language}`}>{t("find_department")}</Link>
+          <Link to={`/Nova-Poshta/${i18n.language}`}>
+            {t("find_department")}
+          </Link>
         </div>
         <div className={styles.link_block}>
-          <Link to={`/${i18n.language}/delivery-price`}>
+          <Link to={`/Nova-Poshta/${i18n.language}/delivery-price`}>
             {t("delivery_price")}
           </Link>
         </div>
         <div className={styles.link_block}>
-          <Link to={`/${i18n.language}/delivery-tracking`}>
+          <Link to={`/Nova-Poshta/${i18n.language}/delivery-tracking`}>
             {t("delivery_tracking")}
           </Link>
         </div>
