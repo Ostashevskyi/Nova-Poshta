@@ -5,6 +5,7 @@ import React, { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { ThemeProvider } from "@emotion/react";
 import Header from "src/components/Header/Header";
+import { useNavigate } from "react-router-dom";
 
 import "./App.css";
 
@@ -13,6 +14,7 @@ import { themes } from "./utils/themes";
 
 function App() {
   const [isLight, setIsLight] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.getItem("isLight") === null
@@ -31,6 +33,10 @@ function App() {
   useEffect(() => {
     i18n.changeLanguage(lng);
   }, [lng]);
+
+  useEffect(() => {
+    navigate("/en", { replace: true });
+  }, []);
 
   return (
     <React.Fragment>

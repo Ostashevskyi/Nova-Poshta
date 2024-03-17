@@ -14,7 +14,7 @@ function HeaderTitle() {
         <img src="/images/logo.png" alt="logo"></img>
       </div>
       <div>
-        <Link to={`/Nova-Poshta/${getLanguage()}`}>
+        <Link to={`/${getLanguage()}`}>
           <h1>Nova Poshta Info</h1>
         </Link>
       </div>
